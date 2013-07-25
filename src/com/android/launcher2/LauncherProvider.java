@@ -333,7 +333,7 @@ public class LauncherProvider extends ContentProvider {
 
                 if(ClientName.equals("u1a")){
 					loadFavorites(db, R.xml.default_workspace_u1a);
-                    // My change: logout
+                    // My change: logout, Never work
                     Log.i("xxx","Loading Favorites in xml.default_workspace_u1a.xml");
                 }else{// My chagne: None, we are ds5
                 	loadFavorites(db, R.xml.default_workspace);
