@@ -299,6 +299,7 @@ public class LauncherProvider extends ContentProvider {
         public void onCreate(SQLiteDatabase db) {
             if (LOGD) Log.d(TAG, "creating new launcher database");
 			String ClientName = SystemProperties.get("ro.client.name" ,"xinwu");
+            //My change: none, Actually get "ds5"
             mMaxId = 1;
 
             db.execSQL("CREATE TABLE favorites (" +
@@ -334,11 +335,11 @@ public class LauncherProvider extends ContentProvider {
                 if(ClientName.equals("u1a")){
 					loadFavorites(db, R.xml.default_workspace_u1a);
                     // My change: logout, Never work
-                    Log.i("xxx","Loading Favorites in xml.default_workspace_u1a.xml");
+                    Log.i("xxxx","Loading Favorites in xml.default_workspace_u1a.xml");
                 }else{// My chagne: None, we are ds5
                 	loadFavorites(db, R.xml.default_workspace);
                     // My change: logout
-                    Log.i("xxx","Loading Favorites in xml.default_workspace.xml");
+                    Log.i("xxxx","Loading Favorites in xml.default_workspace.xml");
                 }
             }
 
