@@ -843,9 +843,8 @@ public final class Launcher extends Activity
             mSearchDropTargetBar.setup(this, dragController);
         }
 
-        // my change:
-        // Hide the search bar and hotseat
-        mSearchDropTargetBar.hideSearchBar(true);
+        // my change:Hide the search bar and hotseat and AllAppIcons
+        //mSearchDropTargetBar.hideSearchBar(true);
     }
 
     /**
