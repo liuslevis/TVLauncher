@@ -17,6 +17,13 @@
 -->
 
 <resources>
+    <!-- My change: define android:defaultScreen attr for com.android.launcher.Workspace-->
+    <!--
+    <declare-styleable name="Workspace">
+        <attr name="d​​efaultScreen" format="integer" />
+    </declare-styleable>
+    -->
+
     <!-- Orientation of a widget. -->
     <attr name="direction">
         <!-- Vertical widget. -->

@@ -302,7 +302,8 @@ public class Workspace extends SmoothPagedView
         // if the value is manually specified, use that instead
         cellCountX = a.getInt(R.styleable.Workspace_cellCountX, cellCountX);
         cellCountY = a.getInt(R.styleable.Workspace_cellCountY, cellCountY);
-        mDefaultPage = a.getInt(R.styleable.Workspace_defaultScreen, 1);
+        mDefaultPage = a.getInt(R.styleable.Workspace_defaultScreen, 0);
+        Log.i("xxx","mDefaultPage = " + Integer.toString(mDefaultPage));
         a.recycle();
 
         LauncherModel.updateWorkspaceLayoutCells(cellCountX, cellCountY);

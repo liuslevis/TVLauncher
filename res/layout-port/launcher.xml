@@ -46,7 +46,7 @@
         android:layout_height="match_parent"
         android:paddingTop="@dimen/qsb_bar_height_inset"
         android:paddingBottom="@dimen/button_bar_height"
-        launcher:defaultScreen="2"
+        launcher:defaultScreen="0"
         launcher:cellCountX="4"
         launcher:cellCountY="4"
         launcher:pageSpacing="@dimen/workspace_page_spacing"
@@ -55,9 +55,11 @@
 
         <include android:id="@+id/cell1" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell2" layout="@layout/workspace_screen" />
+        <!-- My change:
         <include android:id="@+id/cell3" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell4" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell5" layout="@layout/workspace_screen" />
+        -->
     </com.android.launcher2.Workspace>
 
     <include layout="@layout/hotseat"

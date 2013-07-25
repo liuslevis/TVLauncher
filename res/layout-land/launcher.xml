@@ -25,6 +25,7 @@
 
 
     <!-- The workspace contains 5 screens of cells -->
+     <!-- My change: 5->2 -->
     <com.android.launcher2.Workspace
         android:id="@+id/workspace"
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
         android:paddingLeft="@dimen/qsb_bar_height"
         android:paddingRight="@dimen/button_bar_height"
 
-        launcher:defaultScreen="3" 
+        launcher:defaultScreen="0" 
         launcher:cellCountX="3"
         launcher:cellCountY="4"
         launcher:pageSpacing="@dimen/workspace_page_spacing"
@@ -41,9 +42,11 @@
 
         <include android:id="@+id/cell1" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell2" layout="@layout/workspace_screen" />
+        <!-- My change: comment out
         <include android:id="@+id/cell3" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell4" layout="@layout/workspace_screen" />
         <include android:id="@+id/cell5" layout="@layout/workspace_screen" />
+        -->
  
     </com.android.launcher2.Workspace>
 

@@ -330,10 +330,15 @@ public class LauncherProvider extends ContentProvider {
 
             if (!convertDatabase(db)) {
                 // Populate favorites table with initial favorites
+
                 if(ClientName.equals("u1a")){
 					loadFavorites(db, R.xml.default_workspace_u1a);
-                }else{// My chagne: we are ds5
+                    // My change: logout
+                    Log.i("xxx","Loading Favorites in xml.default_workspace_u1a.xml");
+                }else{// My chagne: None, we are ds5
                 	loadFavorites(db, R.xml.default_workspace);
+                    // My change: logout
+                    Log.i("xxx","Loading Favorites in xml.default_workspace.xml");
                 }
             }
 

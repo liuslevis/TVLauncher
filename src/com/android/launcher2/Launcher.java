@@ -134,8 +134,8 @@ public final class Launcher extends Activity
 
     static final String EXTRA_SHORTCUT_DUPLICATE = "duplicate";
 
-    static final int SCREEN_COUNT = 5;
-    static final int DEFAULT_SCREEN = 2;
+    static final int SCREEN_COUNT = 2;
+    static final int DEFAULT_SCREEN = 1;
 
     static final int DIALOG_CREATE_SHORTCUT = 1;
     static final int DIALOG_RENAME_FOLDER = 2;
