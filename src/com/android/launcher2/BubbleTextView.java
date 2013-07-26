@@ -96,8 +96,9 @@ public class BubbleTextView extends TextView {
     }
 
     public void applyFromShortcutInfo(ShortcutInfo info, IconCache iconCache) {
+        // My comment: Get icon from iconCache
         Bitmap b = info.getIcon(iconCache);
-
+        // My comment: Set drawable along with the text
         setCompoundDrawablesWithIntrinsicBounds(null,
                 new FastBitmapDrawable(b),
                 null, null);

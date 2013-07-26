@@ -124,13 +124,15 @@ class ShortcutInfo extends ItemInfo {
         String uri = intent != null ? intent.toUri(0) : null;
         values.put(LauncherSettings.BaseLauncherColumns.INTENT, uri);
 
-        if (customIcon) {
+        if (customIcon) { // My comment: icon not from a res.
             values.put(LauncherSettings.BaseLauncherColumns.ICON_TYPE,
                     LauncherSettings.BaseLauncherColumns.ICON_TYPE_BITMAP);
             writeBitmap(values, mIcon);
-        } else {
+        } else {// My comment: icon from res
             if (!usingFallbackIcon) {
+                // My comment: If not using system (fallback )icon, write ur icon to launcher.db 
                 writeBitmap(values, mIcon);
+                Log.v("xxxx","Setting My shortcut icon to db here");
             }
             values.put(LauncherSettings.BaseLauncherColumns.ICON_TYPE,
                     LauncherSettings.BaseLauncherColumns.ICON_TYPE_RESOURCE);

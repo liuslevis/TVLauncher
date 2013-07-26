@@ -19,6 +19,7 @@ package com.android.launcher2;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
+import android.util.Log;
 
 /**
  * Represents a folder containing shortcuts or apps.
@@ -34,6 +35,9 @@ class FolderInfo extends ItemInfo {
      * The folder name.
      */
     CharSequence title;
+
+    // My change: Add
+    public String folderIconResourceId;
 
     /**
      * The apps and shortcuts
@@ -82,6 +86,8 @@ class FolderInfo extends ItemInfo {
     @Override
     void onAddToDatabase(ContentValues values) {
         super.onAddToDatabase(values);
+        // My change: No execute here.
+        Log.v("xxxx","FolderInfo onAddToDatabase ");
         values.put(LauncherSettings.Favorites.TITLE, title.toString());
     }
 

@@ -272,7 +272,7 @@ public final class Launcher extends Activity
         int cellY;
     }
 
-    //My change:
+    //My change: ADD
     // Note: most mWorkspace or super's member is protected, better method into Workspace.
     /** Called when the user clicks the Prev/Next Screen button */ 
     public void onClickPrevScreenButton(View view) {
@@ -382,7 +382,6 @@ public final class Launcher extends Activity
 		WallpaperFullscreen.RefreshWallpaper(this);
 
         // My change: log all widget package name & class name.
-
         List<AppWidgetProviderInfo> providers = mAppWidgetManager.getInstalledProviders();
         final int providerCount = providers.size();
         for (int i = 0; i < providerCount; i++) {
@@ -843,7 +842,7 @@ public final class Launcher extends Activity
             mSearchDropTargetBar.setup(this, dragController);
         }
 
-        // my change:Hide the search bar and hotseat and AllAppIcons
+        // my change: ADD.Hide the search bar and hotseat and AllAppIcon
         //mSearchDropTargetBar.hideSearchBar(true);
     }
 
@@ -870,6 +869,7 @@ public final class Launcher extends Activity
      */
     View createShortcut(int layoutResId, ViewGroup parent, ShortcutInfo info) {
         BubbleTextView favorite = (BubbleTextView) mInflater.inflate(layoutResId, parent, false);
+        // My comment: create shortcut with Icon
         favorite.applyFromShortcutInfo(info, mIconCache);
         favorite.setOnClickListener(this);
         return favorite;
@@ -1580,6 +1580,7 @@ public final class Launcher extends Activity
         startActivityForResult(intent, REQUEST_PICK_WALLPAPER);
     }
 
+    // My change: None. Add folder when drag & drop icons to folder.
     FolderIcon addFolder(CellLayout layout, long container, final int screen, int cellX,
             int cellY) {
         final FolderInfo folderInfo = new FolderInfo();
@@ -2992,13 +2993,15 @@ public final class Launcher extends Activity
             // Short circuit if we are loading dock items for a configuration which has no dock
             if (item.container == LauncherSettings.Favorites.CONTAINER_HOTSEAT &&
                     mHotseat == null) {
+                //My change: TODO: Implement Hotseat here.
                 continue;
             }
 
             switch (item.itemType) {
                 case LauncherSettings.Favorites.ITEM_TYPE_APPLICATION:
                 case LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT:
-                    View shortcut = createShortcut((ShortcutInfo)item);
+                    // My change: None TODO : check when did they load icon from db.
+                    View shortcut = createShortcut((ShortcutInfo)item); 
                     workspace.addInScreen(shortcut, item.container, item.screen, item.cellX,
                             item.cellY, 1, 1, false);
                     break;
@@ -3006,6 +3009,19 @@ public final class Launcher extends Activity
                     FolderIcon newFolder = FolderIcon.fromXml(R.layout.folder_icon, this,
                             (ViewGroup) workspace.getChildAt(workspace.getCurrentPage()),
                             (FolderInfo) item, mIconCache);
+                    
+                    // My change: TODO: Cutomize Folder's Icon here!
+                    // My change: get customIconResId, customize my icon
+                    FolderInfo info = mModel.getFolderById(this, sFolders, newFolder.mInfo.id);
+                    String customIconResStr = info.folderIconResourceId;// Change name like a string
+                    long container = info.container;
+
+                    String imageName  = customIconResStr.split("/")[1];
+                    Log.v("xxxx","newFolder.mInfo.id="+newFolder.mInfo.id+", customIconResStr="+customIconResStr+", container="+container+", imageName="+imageName);
+                    int drawableImageId = getResources().getIdentifier(imageName,"drawable", getPackageName());
+
+                    newFolder.changeIcon(drawableImageId);// my change: add
+
                     workspace.addInScreen(newFolder, item.container, item.screen, item.cellX,
                             item.cellY, 1, 1, false);
                     break;

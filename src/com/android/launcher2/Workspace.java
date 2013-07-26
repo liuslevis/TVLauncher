@@ -2102,6 +2102,7 @@ public class Workspace extends SmoothPagedView
         return false;
     }
 
+    // My change: None. Method for drag & drop icons to form a folder
     boolean createUserFolderIfNecessary(View newView, long container, CellLayout target,
             int[] targetCell, boolean external, DragView dragView, Runnable postAnimationRunnable) {
         View v = target.getChildAt(targetCell[0], targetCell[1]);

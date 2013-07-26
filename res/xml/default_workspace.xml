@@ -16,72 +16,96 @@
 
 <favorites xmlns:launcher="http://schemas.android.com/apk/res/com.android.launcher">
     <!-- Far-left screen [0] -->
-
-    <!-- Left screen [1] -->
-    <!-- My change : put all appwidget to screen #1-->
+    <!-- My change : put all appwidget to screen #0-->
+    <!--
     <appwidget
         launcher:packageName="com.android.settings"
         launcher:className="com.android.settings.widget.SettingsAppWidgetProvider"
         launcher:screen="1"
         launcher:x="0"
-        launcher:y="3"
-        launcher:spanX="4"
-        launcher:spanY="1" />
-
-   
+        launcher:y="3" />
     <appwidget
         launcher:packageName="com.android.browser"
         launcher:className="com.android.browser.widget.BookmarkThumbnailWidgetProvider"
         launcher:screen="1"
         launcher:x="2"
-        launcher:y="2"
+        launcher:y="2" />
+ 
+    <shortcut  
+        launcher:icon="@drawable/right_button_on"  
+        launcher:screen="0"  
+        launcher:title="@string/application_name"  
+        launcher:uri="https://www.amazon.com/"  
+        launcher:x="0"  
+        launcher:y="1" />
+    -->
+    <folder  
+        launcher:icon="@drawable/sub1_1"  
+        launcher:screen="0"  
+        launcher:title="@string/folder_name_format"  
+        launcher:x="3"  
+        launcher:y="3" 
         launcher:spanX="3"
-        launcher:spanY="3" />
-    <favorite
-        launcher:packageName="com.rovio.angrybirdsrio"
-        launcher:className="com.rovio.ka3d.App"
-        launcher:screen="1"
-        launcher:x="0"
-        launcher:y="5" />
-    <favorite
-        launcher:packageName="com.dataviz.docstogo"
-        launcher:className="com.dataviz.dxtg.common.launcher.android.LauncherActivity"
-        launcher:screen="1"
-        launcher:x="1"
-        launcher:y="5" />
-    <favorite
-        launcher:packageName="com.facebook.katana"
-        launcher:className="com.facebook.katana.LoginActivity"
-        launcher:screen="1"
-        launcher:x="2"
-        launcher:y="5" />
-    <favorite
-        launcher:packageName="com.google.android.gm"
-        launcher:className="com.google.android.gm.ConversationListActivityGmail"
-        launcher:screen="1"
-        launcher:x="3"
-        launcher:y="5" />
-    <favorite
-        launcher:packageName="com.android.music"
-        launcher:className="com.android.music.MusicBrowserActivity"
-        launcher:screen="1"
-        launcher:x="4"
-        launcher:y="5" />
-    <favorite
-        launcher:packageName="com.clapfootgames.vtt3dfree"
-        launcher:className="com.clapfootgames.vtt3dfree.Application"
-        launcher:screen="1"
-        launcher:x="5"
-        launcher:y="5" />
-    <favorite
-        launcher:packageName="com.android.gallery3d"
-        launcher:className="com.android.gallery3d.app.Gallery"
-        launcher:screen="1"
-        launcher:x="6"
-        launcher:y="5" />
+        launcher:spanY="3">  
+        <!-- My change: NOT WORK set Size of Folder Icon spanX Y-->
+        <favorite
+            launcher:packageName="com.android.browser"
+            launcher:className="com.android.browser.BrowserActivity"
+            launcher:title="@string/application_name"  
+            launcher:screen="0"
+            launcher:x="0"
+            launcher:y="0" />
+        <shortcut  
+            launcher:icon="@drawable/right_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonb.com/"  
+            launcher:x="0"  
+            launcher:y="2" />
 
-    <!-- Right screen [3] -->
-    <!-- Far-right screen [4] -->
+        <shortcut  
+            launcher:icon="@drawable/left_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonc.com/"  
+            launcher:x="0"  
+            launcher:y="3" />
+        <shortcut  
+            launcher:icon="@drawable/left_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonc.com/"  
+            launcher:x="0"  
+            launcher:y="4" />
+    </folder>
+
+    <folder  
+        launcher:icon="@drawable/sub1_2"  
+        launcher:screen="0"  
+        launcher:title="@string/folder_name_format"  
+        launcher:x="4"  
+        launcher:y="4" 
+        launcher:spanX="4"
+        launcher:spanY="4">  
+        <!-- My change: NOT WORK set Size of Folder Icon spanX Y-->
+        <favorite
+            launcher:packageName="com.android.browser"
+            launcher:className="com.android.browser.BrowserActivity"
+            launcher:title="@string/application_name"  
+            launcher:screen="0"
+            launcher:x="0"
+            launcher:y="0" />
+        <shortcut  
+            launcher:icon="@drawable/right_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonb.com/"  
+            launcher:x="0"  
+            launcher:y="2" />
+    </folder>
+
+    <!-- Right screen [1] -->
+  
 
     <!-- Hotseat (We use the screen as the position of the item in the hotseat) -->
     <favorite

@@ -382,6 +382,8 @@ public class LauncherModel extends BroadcastReceiver {
                 final int screenIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.SCREEN);
                 final int cellXIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.CELLX);
                 final int cellYIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.CELLY);
+                //My change: Add folder iconResId db query
+                final int folderIconResourceIdIndex = c.getColumnIndexOrThrow(LauncherSettings.Favorites.ICON_RESOURCE);
 
                 FolderInfo folderInfo = null;
                 switch (c.getInt(itemTypeIndex)) {
@@ -396,6 +398,8 @@ public class LauncherModel extends BroadcastReceiver {
                 folderInfo.screen = c.getInt(screenIndex);
                 folderInfo.cellX = c.getInt(cellXIndex);
                 folderInfo.cellY = c.getInt(cellYIndex);
+                // My change: ADD
+                folderInfo.folderIconResourceId = c.getString(folderIconResourceIdIndex);
 
                 return folderInfo;
             }

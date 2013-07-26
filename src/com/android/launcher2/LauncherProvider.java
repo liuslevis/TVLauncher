@@ -329,14 +329,14 @@ public class LauncherProvider extends ContentProvider {
                 sendAppWidgetResetNotify();
             }
 
+            // My change: Note: xml will load only without launcher.db files 
             if (!convertDatabase(db)) {
                 // Populate favorites table with initial favorites
-
                 if(ClientName.equals("u1a")){
 					loadFavorites(db, R.xml.default_workspace_u1a);
                     // My change: logout, Never work
                     Log.i("xxxx","Loading Favorites in xml.default_workspace_u1a.xml");
-                }else{// My chagne: None, we are ds5
+                }else{// My change: None, we are ds5
                 	loadFavorites(db, R.xml.default_workspace);
                     // My change: logout
                     Log.i("xxxx","Loading Favorites in xml.default_workspace.xml");
@@ -844,7 +844,10 @@ public class LauncherProvider extends ContentProvider {
                             title = mContext.getResources().getString(R.string.folder_name);
                         }
                         values.put(LauncherSettings.Favorites.TITLE, title);
-                        long folderId = addFolder(db, values);
+                        // My change: NOTICE! Create new Folder View here! Pass customize icon res.
+                        //long folderId = addFolder(db, values);
+                        long folderId = addFolderWithCustomIcon(db, values, a);
+
                         added = folderId >= 0;
 
                         ArrayList<Long> folderItems = new ArrayList<Long>();
@@ -865,11 +868,15 @@ public class LauncherProvider extends ContentProvider {
                             if (TAG_FAVORITE.equals(folder_item_name) && folderId >= 0) {
                                 long id =
                                     addAppShortcut(db, values, ar, packageManager, intent);
+                                // My Change: Folder item initialize here, from default_workspace.xml
+                                Log.i("xxxx",">>>>>>>addAppShortcut: a favorite!");
                                 if (id >= 0) {
                                     folderItems.add(id);
                                 }
                             } else if (TAG_SHORTCUT.equals(folder_item_name) && folderId >= 0) {
                                 long id = addUriShortcut(db, values, ar);
+                                // My Change: Folder item initialize here, from default_workspace.xml
+                                Log.i("xxxx",">>>>>>>addUriShotcut: a folder item!");
                                 if (id >= 0) {
                                     folderItems.add(id);
                                 }
@@ -948,12 +955,44 @@ public class LauncherProvider extends ContentProvider {
             values.put(Favorites.SPANY, 1);
             long id = generateNewId();
             values.put(Favorites._ID, id);
+
+            // My change: None. Refer addUriShortcut about adding icon & icon pkg
             if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) <= 0) {
                 return -1;
             } else {
                 return id;
             }
         }
+
+        //My change: ADD new method
+        private long addFolderWithCustomIcon(SQLiteDatabase db, ContentValues values, TypedArray a) {
+            Resources r = mContext.getResources();
+            // My change: BUG may exists here.
+            final int iconResId = a.getResourceId(R.styleable.Favorite_icon, 0);
+            final int titleResId = a.getResourceId(R.styleable.Favorite_title, 0);
+            if (iconResId == 0 || titleResId == 0) {
+                Log.i("xxxx", "FolderWithCustomIcon is missing title or icon resource ID");
+                return -1;
+            }
+            values.put(Favorites.ICON_TYPE, Favorites.ICON_TYPE_RESOURCE);
+            values.put(Favorites.ICON_PACKAGE, mContext.getPackageName());
+            values.put(Favorites.ICON_RESOURCE, r.getResourceName(iconResId));
+            Log.i("xxxx", "addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
+            Log.i("xxxx", "addFolderWithCustomIcon:iconType = "+Favorites.ICON_TYPE_RESOURCE);
+            values.put(Favorites.ITEM_TYPE, Favorites.ITEM_TYPE_FOLDER);
+            // My change: TODO customize Size here
+            values.put(Favorites.SPANX, 1);
+            values.put(Favorites.SPANY, 1);
+            long id = generateNewId();
+            values.put(Favorites._ID, id);
+
+            if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) <= 0) {
+                return -1;
+            } else {
+                return id;
+            }
+        }
+
 
         private ComponentName getSearchWidgetProvider() {
             SearchManager searchManager =

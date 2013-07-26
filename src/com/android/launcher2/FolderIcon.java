@@ -37,6 +37,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.android.launcher.R;
 import com.android.launcher2.DropTarget.DragObject;
@@ -54,7 +55,9 @@ public class FolderIcon extends LinearLayout implements FolderListener {
     private static boolean sStaticValuesDirty = true;
 
     // The number of icons to display in the
-    private static final int NUM_ITEMS_IN_PREVIEW = 3;
+    // My change: 3->0 , Do not DrawPreviewItem. 
+    // My change: TODO , custom as you need.
+    private static final int NUM_ITEMS_IN_PREVIEW = 0;
     private static final int CONSUMPTION_ANIMATION_DURATION = 100;
     private static final int DROP_IN_ANIMATION_DURATION = 400;
     private static final int INITIAL_ITEM_ANIMATION_DURATION = 350;
@@ -74,6 +77,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
 
     public static Drawable sSharedFolderLeaveBehind = null;
 
+    // My change: None. TODO: here's the icon image obj.
     private ImageView mPreviewBackground;
     private BubbleTextView mFolderName;
 
@@ -108,6 +112,12 @@ public class FolderIcon extends LinearLayout implements FolderListener {
         return !workspace.isSmall();
     }
 
+    // My change:Add
+    public void changeIcon(int customIconResId){
+        mPreviewBackground.setImageResource(customIconResId);
+    }
+
+
     static FolderIcon fromXml(int resId, Launcher launcher, ViewGroup group,
             FolderInfo folderInfo, IconCache iconCache) {
 
@@ -121,6 +131,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
 
         icon.mFolderName = (BubbleTextView) icon.findViewById(R.id.folder_icon_name);
         icon.mFolderName.setText(folderInfo.title);
+        // My change: TODO. Setup FolderIcon here at new Method fromXmlWithCustomIcon
         icon.mPreviewBackground = (ImageView) icon.findViewById(R.id.preview_background);
 
         icon.setTag(folderInfo);
@@ -131,6 +142,47 @@ public class FolderIcon extends LinearLayout implements FolderListener {
                 folderInfo.title));
         Folder folder = Folder.fromXml(launcher);
         folder.setDragController(launcher.getDragController());
+
+        folder.setFolderIcon(icon);
+        folder.bind(folderInfo);
+        icon.mFolder = folder;
+
+        icon.mFolderRingAnimator = new FolderRingAnimator(launcher, icon);
+        folderInfo.addListener(icon);
+
+        return icon;
+    }
+
+    // My change: ADD method:loading customize icon
+    static FolderIcon fromXmlWithCustomIcon(int resId, Launcher launcher, ViewGroup group,
+            FolderInfo folderInfo, IconCache iconCache, int customIconResId) {
+
+        if (INITIAL_ITEM_ANIMATION_DURATION >= DROP_IN_ANIMATION_DURATION) {
+            throw new IllegalStateException("DROP_IN_ANIMATION_DURATION must be greater than " +
+                    "INITIAL_ITEM_ANIMATION_DURATION, as sequencing of adding first two items " +
+                    "is dependent on this");
+        }
+
+        FolderIcon icon = (FolderIcon) LayoutInflater.from(launcher).inflate(resId, group, false);
+
+        icon.mFolderName = (BubbleTextView) icon.findViewById(R.id.folder_icon_name);
+        icon.mFolderName.setText(folderInfo.title);
+        // My change: TODO. Setup custom Icon here.
+        // R.id.pre*_backgrnd is ImageView defined in Folder_icon.xml
+        icon.mPreviewBackground = (ImageView) icon.findViewById(R.id.preview_background);
+
+        // folderInfo get customIconResId
+        icon.mPreviewBackground.setImageResource(customIconResId);// my change: add
+
+        icon.setTag(folderInfo);
+        icon.setOnClickListener(launcher);
+        icon.mInfo = folderInfo;
+        icon.mLauncher = launcher;
+        icon.setContentDescription(String.format(launcher.getString(R.string.folder_name_format),
+                folderInfo.title));
+        Folder folder = Folder.fromXml(launcher);
+        folder.setDragController(launcher.getDragController());
+
         folder.setFolderIcon(icon);
         folder.bind(folderInfo);
         icon.mFolder = folder;
