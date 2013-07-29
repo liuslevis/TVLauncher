@@ -302,7 +302,12 @@ public class Workspace extends SmoothPagedView
         // if the value is manually specified, use that instead
         cellCountX = a.getInt(R.styleable.Workspace_cellCountX, cellCountX);
         cellCountY = a.getInt(R.styleable.Workspace_cellCountY, cellCountY);
-        //My change: 2->0
+
+        //My change: change cell matrix size 
+        cellCountX = 5;
+        cellCountY = 2;
+        Log.v("xxxx","cellCountX,Y="+cellCountX+","+cellCountY);
+        // end my change
         mDefaultPage = a.getInt(R.styleable.Workspace_defaultScreen, 0);
         a.recycle();
 

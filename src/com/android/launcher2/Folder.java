@@ -124,6 +124,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mIconCache = ((LauncherApplication)context.getApplicationContext()).getIconCache();
 
         Resources res = getResources();
+        // My change: TODO set folder max count x y here in xml
         mMaxCountX = res.getInteger(R.integer.folder_max_count_x);
         mMaxCountY = res.getInteger(R.integer.folder_max_count_y);
         mMaxNumItems = res.getInteger(R.integer.folder_max_num_items);
@@ -290,7 +291,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         return true;
     }
 
-    public void setDragController(DragController dragController) {
+    public void setFolderIcon(DragController dragController) {
         mDragController = dragController;
     }
 
@@ -383,6 +384,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mState = STATE_SMALL;
     }
 
+    // my change: TODO when folder open, custom window size
     public void animateOpen() {
         positionAndSizeAsIcon();
 
@@ -743,6 +745,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         return null;
     }
 
+    // my change: TODO fixed size of folder content window
     private void setupContentDimensions(int count) {
         ArrayList<View> list = getItemsInReadingOrder();
 
@@ -768,7 +771,8 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             }
             done = countX == oldCountX && countY == oldCountY;
         }
-        mContent.setGridSize(countX, countY);
+        // My change: TODO fixed size 
+        mContent.setGridSize(4,3);//(countX, countY);
         arrangeChildren(list);
     }
 

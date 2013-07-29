@@ -40,14 +40,59 @@
         launcher:y="1" />
     -->
     <folder  
-        launcher:icon="@drawable/sub1_1"  
+        launcher:icon="@drawable/icon_sub1_1_off"  
         launcher:screen="0"  
-        launcher:title="@string/folder_name_format"  
-        launcher:x="3"  
-        launcher:y="3" 
-        launcher:spanX="3"
-        launcher:spanY="3">  
-        <!-- My change: NOT WORK set Size of Folder Icon spanX Y-->
+        launcher:title="@string/folder_name"  
+        launcher:x="0"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
+        <favorite
+            launcher:packageName="com.android.browser"
+            launcher:className="com.android.browser.BrowserActivity"
+            launcher:title="@string/application_name"  
+            launcher:screen="0"
+            launcher:x="0"
+            launcher:y="0" />
+        <shortcut  
+            launcher:icon="@drawable/right_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonb.com/"  
+            launcher:x="1"  
+            launcher:y="0" />
+
+        <shortcut  
+            launcher:icon="@drawable/left_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonc.com/"  
+            launcher:x="2"  
+            launcher:y="0" />
+        <shortcut  
+            launcher:icon="@drawable/left_button_on"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="https://www.amazonc.com/"  
+            launcher:x="3"  
+            launcher:y="0" />
+        <favorite
+            launcher:packageName="com.android.browser"
+            launcher:className="com.android.browser.BrowserActivity"
+            launcher:title="@string/application_name"  
+            launcher:screen="0"
+            launcher:x="4"
+            launcher:y="0" />
+    </folder>
+
+    <folder  
+        launcher:icon="@drawable/icon_sub1_2_off"  
+        launcher:screen="0"  
+        launcher:title="@string/folder_name"  
+        launcher:x="1"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
         <favorite
             launcher:packageName="com.android.browser"
             launcher:className="com.android.browser.BrowserActivity"
@@ -79,15 +124,15 @@
             launcher:y="4" />
     </folder>
 
+
     <folder  
-        launcher:icon="@drawable/sub1_2"  
+        launcher:icon="@drawable/icon_sub1_3_off"  
         launcher:screen="0"  
-        launcher:title="@string/folder_name_format"  
-        launcher:x="4"  
-        launcher:y="4" 
-        launcher:spanX="4"
-        launcher:spanY="4">  
-        <!-- My change: NOT WORK set Size of Folder Icon spanX Y-->
+        launcher:title="@string/folder_name"  
+        launcher:x="2"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
         <favorite
             launcher:packageName="com.android.browser"
             launcher:className="com.android.browser.BrowserActivity"

@@ -287,7 +287,7 @@ public final class Launcher extends Activity
     }
     public void onClickNextScreenButton(View view) {
         int currentPage = mWorkspace.getCurrentPage();
-        // My change: mWorkspace has mWorkspace? or use its super?
+        // My comment: mWorkspace has mWorkspace? or use its super?
         int nextPage = Math.min(mWorkspace.getChildCount() - 1, currentPage + 1);
         if (nextPage != currentPage) {
             mWorkspace.snapToPage(nextPage);
@@ -842,7 +842,7 @@ public final class Launcher extends Activity
             mSearchDropTargetBar.setup(this, dragController);
         }
 
-        // my change: ADD.Hide the search bar and hotseat and AllAppIcon
+        // my change: TODO ADD/DES.Hide the search bar and hotseat and AllAppIcon
         //mSearchDropTargetBar.hideSearchBar(true);
     }
 
@@ -3000,7 +3000,6 @@ public final class Launcher extends Activity
             switch (item.itemType) {
                 case LauncherSettings.Favorites.ITEM_TYPE_APPLICATION:
                 case LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT:
-                    // My change: None TODO : check when did they load icon from db.
                     View shortcut = createShortcut((ShortcutInfo)item); 
                     workspace.addInScreen(shortcut, item.container, item.screen, item.cellX,
                             item.cellY, 1, 1, false);
@@ -3020,10 +3019,12 @@ public final class Launcher extends Activity
                     Log.v("xxxx","newFolder.mInfo.id="+newFolder.mInfo.id+", customIconResStr="+customIconResStr+", container="+container+", imageName="+imageName);
                     int drawableImageId = getResources().getIdentifier(imageName,"drawable", getPackageName());
 
-                    newFolder.changeIcon(drawableImageId);// my change: add
+                    newFolder.changeIcon(drawableImageId);
 
                     workspace.addInScreen(newFolder, item.container, item.screen, item.cellX,
-                            item.cellY, 1, 1, false);
+                            item.cellY, item.spanX, item.spanY, false);//add span
+                    // end my change
+                    Log.v("xxxx","Launcher bindItems: Folder Spanx,y="+item.spanX+","+item.spanY);
                     break;
             }
         }
@@ -3319,7 +3320,7 @@ public final class Launcher extends Activity
         if (isClingsEnabled() && !prefs.getBoolean(Cling.WORKSPACE_CLING_DISMISSED_KEY, false)) {
             initCling(R.id.workspace_cling, null, false, 0);
 			if(ClientName.equals("u1a")){
-            // my change: No running into it
+            // my change: Not running into it
             //if(ClientName.equals("ds5")){
                 //my change
                 Log.v("ClientName","is (showFirstRunWorkspaceCling):"+ClientName.toString());

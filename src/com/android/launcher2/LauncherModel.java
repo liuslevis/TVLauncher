@@ -1109,6 +1109,11 @@ public class LauncherModel extends BroadcastReceiver {
                             folderInfo.screen = c.getInt(screenIndex);
                             folderInfo.cellX = c.getInt(cellXIndex);
                             folderInfo.cellY = c.getInt(cellYIndex);
+                            // My change: add loading folder's spanx spany from db
+                            folderInfo.spanX = c.getInt(spanXIndex);
+                            folderInfo.spanY = c.getInt(spanYIndex);
+                            Log.v("xxxx","Provider loadWorkspace():load folder's span x y="+folderInfo.spanX+","+folderInfo.spanY);
+                            // end my change
 
                             // check & update map of what's occupied
                             if (!checkItemPlacement(occupied, folderInfo)) {

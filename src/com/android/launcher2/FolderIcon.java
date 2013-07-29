@@ -77,7 +77,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
 
     public static Drawable sSharedFolderLeaveBehind = null;
 
-    // My change: None. TODO: here's the icon image obj.
+    // My comment: here's the icon image obj.
     private ImageView mPreviewBackground;
     private BubbleTextView mFolderName;
 
@@ -140,9 +140,9 @@ public class FolderIcon extends LinearLayout implements FolderListener {
         icon.mLauncher = launcher;
         icon.setContentDescription(String.format(launcher.getString(R.string.folder_name_format),
                 folderInfo.title));
+        //My change: TODO  you may set Folder Windows size here
         Folder folder = Folder.fromXml(launcher);
         folder.setDragController(launcher.getDragController());
-
         folder.setFolderIcon(icon);
         folder.bind(folderInfo);
         icon.mFolder = folder;
@@ -167,7 +167,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
 
         icon.mFolderName = (BubbleTextView) icon.findViewById(R.id.folder_icon_name);
         icon.mFolderName.setText(folderInfo.title);
-        // My change: TODO. Setup custom Icon here.
+        // My change: Setup custom Icon here.
         // R.id.pre*_backgrnd is ImageView defined in Folder_icon.xml
         icon.mPreviewBackground = (ImageView) icon.findViewById(R.id.preview_background);
 
@@ -226,6 +226,8 @@ public class FolderIcon extends LinearLayout implements FolderListener {
             // different in another configuration
             if (sStaticValuesDirty) {
                 sPreviewSize = res.getDimensionPixelSize(R.dimen.folder_preview_size);
+                // My change: locate folder_preview_size :values-sw360\dimens.xml
+                Log.v("xxxx","R.dimen.folder_preview_size = " + sPreviewSize);
                 sPreviewPadding = res.getDimensionPixelSize(R.dimen.folder_preview_padding);
                 sSharedOuterRingDrawable = res.getDrawable(R.drawable.portal_ring_outer_holo);
                 sSharedInnerRingDrawable = res.getDrawable(R.drawable.portal_ring_inner_holo);

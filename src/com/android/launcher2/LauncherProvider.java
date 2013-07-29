@@ -299,7 +299,7 @@ public class LauncherProvider extends ContentProvider {
         public void onCreate(SQLiteDatabase db) {
             if (LOGD) Log.d(TAG, "creating new launcher database");
 			String ClientName = SystemProperties.get("ro.client.name" ,"xinwu");
-            //My change: none, Actually get "ds5"
+            //My change: none, Actually get ClientName="ds5"
             mMaxId = 1;
 
             db.execSQL("CREATE TABLE favorites (" +
@@ -334,11 +334,11 @@ public class LauncherProvider extends ContentProvider {
                 // Populate favorites table with initial favorites
                 if(ClientName.equals("u1a")){
 					loadFavorites(db, R.xml.default_workspace_u1a);
-                    // My change: logout, Never work
+                    // My change: log, Never work
                     Log.i("xxxx","Loading Favorites in xml.default_workspace_u1a.xml");
                 }else{// My change: None, we are ds5
                 	loadFavorites(db, R.xml.default_workspace);
-                    // My change: logout
+                    // My change: log, work
                     Log.i("xxxx","Loading Favorites in xml.default_workspace.xml");
                 }
             }
@@ -844,7 +844,7 @@ public class LauncherProvider extends ContentProvider {
                             title = mContext.getResources().getString(R.string.folder_name);
                         }
                         values.put(LauncherSettings.Favorites.TITLE, title);
-                        // My change: NOTICE! Create new Folder View here! Pass customize icon res.
+                        // My change: NOTICE! Load db & create new Folder View here! Pass customize icon res.
                         //long folderId = addFolder(db, values);
                         long folderId = addFolderWithCustomIcon(db, values, a);
 
@@ -967,7 +967,6 @@ public class LauncherProvider extends ContentProvider {
         //My change: ADD new method
         private long addFolderWithCustomIcon(SQLiteDatabase db, ContentValues values, TypedArray a) {
             Resources r = mContext.getResources();
-            // My change: BUG may exists here.
             final int iconResId = a.getResourceId(R.styleable.Favorite_icon, 0);
             final int titleResId = a.getResourceId(R.styleable.Favorite_title, 0);
             if (iconResId == 0 || titleResId == 0) {
@@ -977,12 +976,16 @@ public class LauncherProvider extends ContentProvider {
             values.put(Favorites.ICON_TYPE, Favorites.ICON_TYPE_RESOURCE);
             values.put(Favorites.ICON_PACKAGE, mContext.getPackageName());
             values.put(Favorites.ICON_RESOURCE, r.getResourceName(iconResId));
-            Log.i("xxxx", "addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
-            Log.i("xxxx", "addFolderWithCustomIcon:iconType = "+Favorites.ICON_TYPE_RESOURCE);
             values.put(Favorites.ITEM_TYPE, Favorites.ITEM_TYPE_FOLDER);
-            // My change: TODO customize Size here
-            values.put(Favorites.SPANX, 1);
-            values.put(Favorites.SPANY, 1);
+            // My change: customize Size here loading from xml( Nothing happened but db change.)
+            //load spanx y from xml, save to launcher.db when init
+            String spanX = a.getString(R.styleable.Favorite_spanX);
+            String spanY = a.getString(R.styleable.Favorite_spanY);
+            Log.i("xxxx", "addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
+            Log.i("xxxx", "addFolderWithCustomIcon:iconType = "+Favorites.ICON_TYPE_RESOURCE+" SpanX Y="+spanX+" "+spanY);
+            values.put(Favorites.SPANX, spanX);
+            values.put(Favorites.SPANY, spanY);
+            // end my change
             long id = generateNewId();
             values.put(Favorites._ID, id);
 

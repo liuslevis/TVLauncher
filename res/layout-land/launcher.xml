@@ -25,17 +25,16 @@
 
 
     <!-- The workspace contains 5 screens of cells -->
-     <!-- My change: 5->2 -->
+     <!-- My change: cell5->2 ;defaultScreen; cellCountX Y not work, change in workspace.java-->
     <com.android.launcher2.Workspace
         android:id="@+id/workspace"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/qsb_bar_height"
         android:paddingRight="@dimen/button_bar_height"
-
         launcher:defaultScreen="0" 
-        launcher:cellCountX="3"
-        launcher:cellCountY="4"
+        launcher:cellCountX="5"
+        launcher:cellCountY="2"
         launcher:pageSpacing="@dimen/workspace_page_spacing"
         launcher:scrollIndicatorPaddingLeft="@dimen/qsb_bar_height"
         launcher:scrollIndicatorPaddingRight="@dimen/button_bar_height">
