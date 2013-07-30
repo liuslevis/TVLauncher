@@ -22,8 +22,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <!-- The workspace contains 5 screens of cells -->
      <!-- My change: cell5->2 ;defaultScreen; cellCountX Y not work, change in workspace.java-->
     <com.android.launcher2.Workspace
@@ -47,8 +45,6 @@
         <include android:id="@+id/cell5" layout="@layout/workspace_screen" />
         -->
     </com.android.launcher2.Workspace>
-
-
 
     <include
         android:id="@+id/qsb_divider"

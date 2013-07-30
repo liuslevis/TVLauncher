@@ -59,20 +59,19 @@
                 android:background="@drawable/right_button"
                 android:onClick="onClickNextScreenButton"/>
         </LinearLayout>
-    </LinearLayout> 
+    </LinearLayout>    
 
     <include layout="@layout/workspace"
         android:id="@+id/workspace"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- my comment: cant simply comment out, will crash-->
     <include layout="@layout/qsb_bar"
         android:id="@+id/qsb_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/qsb_bar_height"
         android:layout_gravity="top" />
-    
+
     <include layout="@layout/apps_customize_pane"
         android:id="@+id/apps_customize_pane"
         android:layout_width="match_parent"
