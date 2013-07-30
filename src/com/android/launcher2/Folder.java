@@ -291,9 +291,10 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         return true;
     }
 
-    public void setFolderIcon(DragController dragController) {
+    public void setDragController(DragController dragController) {
         mDragController = dragController;
     }
+
 
     void setFolderIcon(FolderIcon icon) {
         mFolderIcon = icon;
