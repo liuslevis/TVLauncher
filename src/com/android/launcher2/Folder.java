@@ -45,6 +45,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.android.launcher.R;
 import com.android.launcher2.FolderInfo.FolderListener;
@@ -155,9 +156,13 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        // My change: TODO load user_folder.xml, modify if neccessary
         mContent = (CellLayout) findViewById(R.id.folder_content);
         mContent.setGridSize(0, 0);
         mContent.getChildrenLayout().setMotionEventSplittingEnabled(false);
+        Log.v("xxxx","Folder.onFinishInflate: mContent.mWidth/HeightGap = "+mContent.getWidthGap()+","+mContent.getHeightGap());
+        Log.v("xxxx","Folder.onFinishInflate: mContent.folder_cell_width/height = "+mContent.getCellWidth()+","+mContent.getCellHeight());
+        // My change: TODO remove editable folder_name box
         mFolderName = (FolderEditText) findViewById(R.id.folder_name);
         mFolderName.setFolder(this);
         mFolderName.setOnFocusChangeListener(this);
@@ -294,8 +299,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     public void setDragController(DragController dragController) {
         mDragController = dragController;
     }
-
-
+    
     void setFolderIcon(FolderIcon icon) {
         mFolderIcon = icon;
     }
@@ -773,7 +777,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             done = countX == oldCountX && countY == oldCountY;
         }
         // My change: TODO fixed size 
-        mContent.setGridSize(4,3);//(countX, countY);
+        mContent.setGridSize(4,2);//(countX, countY);
         arrangeChildren(list);
     }
 
@@ -781,6 +785,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         return getItemCount() >= mMaxNumItems;
     }
 
+    //My comment: Set size & location of an open folder window
     private void centerAboutIcon() {
         DragLayer.LayoutParams lp = (DragLayer.LayoutParams) getLayoutParams();
 
@@ -827,12 +832,20 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mFolderIcon.setPivotY(folderIconPivotY);
 
         if (mMode == PARTIAL_GROW) {
+            // My change: TODO Customize folder open window fixed size
+            width =950;
+            height = 500;
+            left = 167;//left padding
+            top = 160;//top padding
+
             lp.width = width;
             lp.height = height;
             lp.x = left;
             lp.y = top;
+            Log.v("xxxx","lp.width,height,x,y="+lp.width+","+lp.height+","+lp.x +","+lp.y );
         } else {
             mNewSize.set(left, top, left + width, top + height);
+            Log.v("xxxx","mNewsize.width,height,x,y="+width+","+height+","+left +","+top );
         }
     }
 

@@ -22,6 +22,7 @@
     android:orientation="vertical"
     android:background="@drawable/portal_container_holo">
 
+  <!-- My change: TODO  set folder icon, open window here.-->
     <com.android.launcher2.CellLayout
         android:id="@+id/folder_content"
         android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
         android:paddingBottom="0dip"
         android:cacheColorHint="#ff333333"
         android:hapticFeedbackEnabled="false"
-        launcher:widthGap="@dimen/folder_width_gap"
+        launcher:widthGap="@dimen/folder_width_gap" 
         launcher:heightGap="@dimen/folder_height_gap"
         launcher:cellWidth="@dimen/folder_cell_width"
         launcher:cellHeight="@dimen/folder_cell_height" />

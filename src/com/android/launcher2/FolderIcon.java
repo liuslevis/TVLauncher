@@ -153,7 +153,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
         return icon;
     }
 
-    // My change: ADD method:loading customize icon
+    // My change: ADD method:loading customize icon (ABANDOM)
     static FolderIcon fromXmlWithCustomIcon(int resId, Launcher launcher, ViewGroup group,
             FolderInfo folderInfo, IconCache iconCache, int customIconResId) {
 

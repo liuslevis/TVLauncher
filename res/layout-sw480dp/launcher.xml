@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="3.0dip"
-                android:background="@drawable/left_button_effects"
+                android:background="@drawable/left_button"
                 android:onClick="onClickPrevScreenButton"/>
         </LinearLayout>
         <LinearLayout 
@@ -85,8 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="3.0dip"
-                android:background="@drawable/right_button_effects"
+                android:layout_marginLeft="3.0dip"
+                android:background="@drawable/right_button"
                 android:onClick="onClickNextScreenButton"/>
         </LinearLayout>
     </LinearLayout>    

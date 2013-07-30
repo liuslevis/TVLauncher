@@ -27,10 +27,12 @@
     <!-- My change: customize cell size: 96->180,120 -->
     <dimen name="workspace_cell_width">180dip</dimen>
     <dimen name="workspace_cell_height">120dip</dimen>
-    <!-- My change: customize folder cell size: 96 default -->
-    <dimen name="folder_cell_width">400dp</dimen>
-    <dimen name="folder_cell_height">100dp</dimen>
-
+    <!-- My change: TODO customize folder cell（Open Window） size: 96 default -->
+    <dimen name="folder_cell_width">90dp</dimen>
+    <dimen name="folder_cell_height">120dp</dimen>
+    <dimen name="folder_width_gap">11dp</dimen>
+    <dimen name="folder_height_gap">11dp</dimen>
+    
     <dimen name="app_icon_padding_top">4dp</dimen>
 
 <!-- AppsCustomize -->
@@ -77,7 +79,7 @@
 
 <!-- Folders -->
     <!-- The size of the image which sits behind the preview of the folder contents -->
-    <!-- My change: Customize Folder Icon Size here-->
+    <!-- My change: TODO Customize Folder Icon Size here-->
     <dimen name="folder_preview_size">290dp</dimen>
     <!-- The amount that the preview contents are inset from the preview background -->
     <dimen name="folder_preview_padding">4dp</dimen>
