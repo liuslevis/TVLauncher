@@ -125,7 +125,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mIconCache = ((LauncherApplication)context.getApplicationContext()).getIconCache();
 
         Resources res = getResources();
-        // My change: TODO set folder max count x y here in xml
+        // My comment: set folder max count x y here in xml
         mMaxCountX = res.getInteger(R.integer.folder_max_count_x);
         mMaxCountY = res.getInteger(R.integer.folder_max_count_y);
         mMaxNumItems = res.getInteger(R.integer.folder_max_num_items);
@@ -156,7 +156,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        // My change: TODO load user_folder.xml, modify if neccessary
+        // My change: None. load user_folder.xml, modify if neccessary
         mContent = (CellLayout) findViewById(R.id.folder_content);
         mContent.setGridSize(0, 0);
         mContent.getChildrenLayout().setMotionEventSplittingEnabled(false);
@@ -389,7 +389,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mState = STATE_SMALL;
     }
 
-    // my change: TODO when folder open, custom window size
+    // my comment: when folder open, custom window size
     public void animateOpen() {
         positionAndSizeAsIcon();
 
@@ -535,6 +535,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         }
     }
 
+    // My change: TODO Display icons in folder
     protected boolean createAndAddShortcut(ShortcutInfo item) {
         final TextView textView =
             (TextView) mInflater.inflate(R.layout.application, this, false);
@@ -750,7 +751,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         return null;
     }
 
-    // my change: TODO fixed size of folder content window
+    // my comment: Set fixed GridSize of folder content window
     private void setupContentDimensions(int count) {
         ArrayList<View> list = getItemsInReadingOrder();
 
@@ -776,7 +777,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             }
             done = countX == oldCountX && countY == oldCountY;
         }
-        // My change: TODO fixed size 
+        // My change: TODO fixed gridsize of opened folder window 
         mContent.setGridSize(4,2);//(countX, countY);
         arrangeChildren(list);
     }
@@ -832,7 +833,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mFolderIcon.setPivotY(folderIconPivotY);
 
         if (mMode == PARTIAL_GROW) {
-            // My change: TODO Customize folder open window fixed size
+            // My change: TODO Customize fixed size of folder open window  
             width =950;
             height = 500;
             left = 167;//left padding
