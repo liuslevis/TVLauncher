@@ -535,12 +535,18 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         }
     }
 
-    // My change: TODO Display icons in folder
+    // My comment: add a icon layout in folder opened layout
+    // My change: TODO reset icon size
     protected boolean createAndAddShortcut(ShortcutInfo item) {
         final TextView textView =
             (TextView) mInflater.inflate(R.layout.application, this, false);
+        //textView.setCompoundDrawablesWithIntrinsicBounds(null,
+        //        new FastBitmapDrawable(item.getIcon(mIconCache)), null, null);
+        // My change: CUSTOM icon size in opened folder window
+            //My BUG:Icon Image not clear, 
+            //My change: TODO item.getIcon(mIconCache) gives 72x72 img, set it!
         textView.setCompoundDrawablesWithIntrinsicBounds(null,
-                new FastBitmapDrawable(item.getIcon(mIconCache)), null, null);
+                new FastBitmapDrawableWithCustomSize(item.getIcon(mIconCache), 200, 200), null, null);
         textView.setText(item.title);
         textView.setTag(item);
 
@@ -560,8 +566,15 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
         CellLayout.LayoutParams lp =
             new CellLayout.LayoutParams(item.cellX, item.cellY, item.spanX, item.spanY);
+        //My change: set layout of icon of a opened folder
+        lp.setWidth(200);
+        lp.setHeight(200);
+        lp.setX(200);
+        lp.setY(200);// Not work! Try to change mContent.addViewToCel..
+        Log.v("xxxx",">>>>>>>>createAndAddShortcut in Folder lp.Width Height x y=  "+lp.getWidth()+","+lp.getHeight()+","+lp.getX()+","+lp.getY());
         boolean insert = false;
-        textView.setOnKeyListener(new FolderKeyEventListener());
+        textView.setOnKeyListener(new FolderKeyEventListener());// IS THIS ICON?
+        // mContent is Celllaout
         mContent.addViewToCellLayout(textView, insert ? 0 : -1, (int)item.id, lp, true);
         return true;
     }
@@ -777,7 +790,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             }
             done = countX == oldCountX && countY == oldCountY;
         }
-        // My change: TODO fixed gridsize of opened folder window 
+        // My change: CUSTOM fixed gridsize of opened folder window 
         mContent.setGridSize(4,2);//(countX, countY);
         arrangeChildren(list);
     }
@@ -833,7 +846,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mFolderIcon.setPivotY(folderIconPivotY);
 
         if (mMode == PARTIAL_GROW) {
-            // My change: TODO Customize fixed size of folder open window  
+            // My change: CUSTOM fixed size of folder open window  
             width =950;
             height = 500;
             left = 167;//left padding

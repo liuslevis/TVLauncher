@@ -24,16 +24,18 @@
     <!-- This should be @dimen/qsb_bar_height - @dimen/workspace_top_padding
          to fix the extra space given to draw portals -->
     <dimen name="workspace_content_large_only_top_margin">36dp</dimen>
-    <!-- My change: customize cell size: 96->180,120 -->
+    <!-- My change: CUSTOM cell size: 96->180,120 -->
     <dimen name="workspace_cell_width">180dip</dimen>
     <dimen name="workspace_cell_height">120dip</dimen>
-    <!-- My change: TODO customize folder cell（Open Window） size: 96 default -->
-    <dimen name="folder_cell_width">90dp</dimen>
-    <dimen name="folder_cell_height">120dp</dimen>
-    <dimen name="folder_width_gap">11dp</dimen>
-    <dimen name="folder_height_gap">11dp</dimen>
+    <!-- My change: CUSTOM customize folder cell（Open Window） size: 96 default -->
+    <dimen name="folder_cell_width">200dp</dimen>
+    <dimen name="folder_cell_height">200dp</dimen>
+    <dimen name="folder_width_gap">10dp</dimen>
+    <dimen name="folder_height_gap">10dp</dimen>
     
-    <dimen name="app_icon_padding_top">4dp</dimen>
+    <!--each icon padding top in folder
+        also used in drag on workspace etc-->
+    <dimen name="app_icon_padding_top">20dp</dimen>
 
 <!-- AppsCustomize -->
     <dimen name="apps_customize_tab_bar_height">60dp</dimen>
@@ -79,7 +81,7 @@
 
 <!-- Folders -->
     <!-- The size of the image which sits behind the preview of the folder contents -->
-    <!-- My change: TODO Customize Folder Icon Size here-->
+    <!-- My change: CUSTOM Folder Icon Size here-->
     <dimen name="folder_preview_size">290dp</dimen>
     <!-- The amount that the preview contents are inset from the preview background -->
     <dimen name="folder_preview_padding">4dp</dimen>

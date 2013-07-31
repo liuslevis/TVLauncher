@@ -56,7 +56,7 @@ public class FolderIcon extends LinearLayout implements FolderListener {
 
     // The number of icons to display in the
     // My change: 3->0 , Do not DrawPreviewItem. 
-    // My change: TODO , custom as you need.
+    // My change: CUSTOM , Folder icon settings
     private static final int NUM_ITEMS_IN_PREVIEW = 0;
     private static final int CONSUMPTION_ANIMATION_DURATION = 100;
     private static final int DROP_IN_ANIMATION_DURATION = 400;
@@ -131,7 +131,6 @@ public class FolderIcon extends LinearLayout implements FolderListener {
 
         icon.mFolderName = (BubbleTextView) icon.findViewById(R.id.folder_icon_name);
         icon.mFolderName.setText(folderInfo.title);
-        // My change: TODO. Setup FolderIcon here at new Method fromXmlWithCustomIcon
         icon.mPreviewBackground = (ImageView) icon.findViewById(R.id.preview_background);
 
         icon.setTag(folderInfo);
@@ -140,7 +139,6 @@ public class FolderIcon extends LinearLayout implements FolderListener {
         icon.mLauncher = launcher;
         icon.setContentDescription(String.format(launcher.getString(R.string.folder_name_format),
                 folderInfo.title));
-        //My change: TODO  you may set Folder Windows size here
         Folder folder = Folder.fromXml(launcher);
         folder.setDragController(launcher.getDragController());
         folder.setFolderIcon(icon);

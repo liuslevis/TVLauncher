@@ -22,7 +22,7 @@
     android:orientation="vertical"
     android:background="@drawable/portal_container_holo">
 
-  <!-- My change: TODO  set folder icon, open window here.-->
+  <!-- My change: CUSTOM  set folder icon, open window here.-->
     <com.android.launcher2.CellLayout
         android:id="@+id/folder_content"
         android:layout_width="wrap_content"
