@@ -22,6 +22,8 @@
     android:orientation="vertical"
     android:focusable="true"
     android:background="@drawable/focusable_view_bg">
+
+    <!--My comment: layout_width/h is folder icon size-->
     <ImageView
         android:id="@+id/preview_background"
         android:layout_gravity="center_horizontal"

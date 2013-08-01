@@ -64,10 +64,12 @@ class ShortcutInfo extends ItemInfo {
 
     ShortcutInfo() {
         itemType = LauncherSettings.BaseLauncherColumns.ITEM_TYPE_SHORTCUT;
+        Log.v("xxxxx","ShortcutInfo()");
     }
     
     public ShortcutInfo(ShortcutInfo info) {
         super(info);
+        Log.v("xxxxx","ShortcutInfo(ShortcutInfo info)");
         title = info.title.toString();
         intent = new Intent(info.intent);
         if (info.iconResource != null) {
@@ -82,6 +84,7 @@ class ShortcutInfo extends ItemInfo {
     /** TODO: Remove this.  It's only called by ApplicationInfo.makeShortcut. */
     public ShortcutInfo(ApplicationInfo info) {
         super(info);
+        Log.v("xxxxx","ShortcutInfo(ApplicationInfo info)");
         title = info.title.toString();
         intent = new Intent(info.intent);
         customIcon = false;
@@ -89,13 +92,17 @@ class ShortcutInfo extends ItemInfo {
 
     public void setIcon(Bitmap b) {
         mIcon = b;
+        Log.v("xxxxx","ShortcutInfo.setIcon(Bitmap b) width,height="+b.getWidth()+","+b.getHeight());
     }
 
     public Bitmap getIcon(IconCache iconCache) {
         if (mIcon == null) {
+            Log.v("xxxxx","ShortcutInfo.getIcon(): mIcon==null,mIcon = iconCache.getIcon(this.intent);");
             mIcon = iconCache.getIcon(this.intent);
             this.usingFallbackIcon = iconCache.isDefaultIcon(mIcon);
         }
+        // My comment : This work, mIcon never null.
+        Log.v("xxxxx","ShortcutInfo.getIcon(): mIcon!=null,return mIcon;");
         return mIcon;
     }
 
@@ -107,6 +114,7 @@ class ShortcutInfo extends ItemInfo {
      * @param launchFlags the launch flags
      */
     final void setActivity(ComponentName className, int launchFlags) {
+        Log.v("xxxxx","ShortcutInfo.setActivity()");
         intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setComponent(className);
@@ -132,7 +140,7 @@ class ShortcutInfo extends ItemInfo {
             if (!usingFallbackIcon) {
                 // My comment: If not using system (fallback )icon, write ur icon to launcher.db 
                 writeBitmap(values, mIcon);
-                Log.v("xxxx","Setting My shortcut icon to db here");
+                Log.v("xxxxx","Setting My shortcut icon to db here");
             }
             values.put(LauncherSettings.BaseLauncherColumns.ICON_TYPE,
                     LauncherSettings.BaseLauncherColumns.ICON_TYPE_RESOURCE);
@@ -152,6 +160,7 @@ class ShortcutInfo extends ItemInfo {
 
     public static void dumpShortcutInfoList(String tag, String label,
             ArrayList<ShortcutInfo> list) {
+        Log.v("xxxxx","ShortcutInfo.dumpShortcutInfoList()");
         Log.d(tag, label + " size=" + list.size());
         for (ShortcutInfo info: list) {
             Log.d(tag, "   title=\"" + info.title + " icon=" + info.mIcon
