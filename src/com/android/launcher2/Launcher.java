@@ -842,7 +842,7 @@ public final class Launcher extends Activity
             mSearchDropTargetBar.setup(this, dragController);
         }
 
-        // my change: TODO ADD/DES.Hide the search bar and hotseat and AllAppIcon
+        // my change: CUSTOM ADD/DES.Hide the search bar and hotseat and AllAppIcon
         //mSearchDropTargetBar.hideSearchBar(true);
     }
 
@@ -3000,6 +3000,7 @@ public final class Launcher extends Activity
             switch (item.itemType) {
                 case LauncherSettings.Favorites.ITEM_TYPE_APPLICATION:
                 case LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT:
+                    // My change: TODO Customize APP Icon here Like below
                     View shortcut = createShortcut((ShortcutInfo)item); 
                     workspace.addInScreen(shortcut, item.container, item.screen, item.cellX,
                             item.cellY, 1, 1, false);
@@ -3009,22 +3010,20 @@ public final class Launcher extends Activity
                             (ViewGroup) workspace.getChildAt(workspace.getCurrentPage()),
                             (FolderInfo) item, mIconCache);
                     
-                    // My change: TODO: Cutomize Folder's Icon here!
-                    // My change: get customIconResId, customize my icon
+                    // My change: CUSTOM: Cutomize Folder's Icon here!
+                    //     Use double spanX,Y(2,2) of Folder to enlarge the icon
                     FolderInfo info = mModel.getFolderById(this, sFolders, newFolder.mInfo.id);
                     String customIconResStr = info.folderIconResourceId;// Change name like a string
                     long container = info.container;
-
                     String imageName  = customIconResStr.split("/")[1];
                     Log.v("xxxx","newFolder.mInfo.id="+newFolder.mInfo.id+", customIconResStr="+customIconResStr+", container="+container+", imageName="+imageName);
                     int drawableImageId = getResources().getIdentifier(imageName,"drawable", getPackageName());
-
                     newFolder.changeIcon(drawableImageId);
 
                     workspace.addInScreen(newFolder, item.container, item.screen, item.cellX,
                             item.cellY, item.spanX, item.spanY, false);//add span
-                    // end my change
                     Log.v("xxxx","Launcher bindItems: Folder Spanx,y="+item.spanX+","+item.spanY);
+                    // end my change
                     break;
             }
         }

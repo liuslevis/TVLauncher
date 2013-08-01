@@ -140,7 +140,7 @@ class ShortcutInfo extends ItemInfo {
             if (!usingFallbackIcon) {
                 // My comment: If not using system (fallback )icon, write ur icon to launcher.db 
                 writeBitmap(values, mIcon);
-                Log.v("xxxxx","Setting My shortcut icon to db here");
+                //Log.v("xxxxx","Setting My shortcut icon to db here");
             }
             values.put(LauncherSettings.BaseLauncherColumns.ICON_TYPE,
                     LauncherSettings.BaseLauncherColumns.ICON_TYPE_RESOURCE);

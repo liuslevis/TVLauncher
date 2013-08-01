@@ -40,113 +40,263 @@
         launcher:y="1" />
     -->
     <folder  
-        launcher:icon="@drawable/icon_sub1_1_off"  
+        launcher:icon="@drawable/sub1_1"  
         launcher:screen="0"  
-        launcher:title="@string/folder_name"  
+        launcher:title="@string/application_name"  
         launcher:x="0"  
         launcher:y="0" 
         launcher:spanX="1"
         launcher:spanY="2">  
-        <favorite
-            launcher:packageName="com.android.browser"
-            launcher:className="com.android.browser.BrowserActivity"
-            launcher:title="@string/application_name"  
-            launcher:screen="0"
-            launcher:x="0"
-            launcher:y="0" />
         <shortcut  
-            launcher:icon="@drawable/right_button_on"  
+            launcher:icon="@drawable/nav1_1"  
             launcher:screen="0"  
             launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonb.com/"  
-            launcher:x="1"  
-            launcher:y="0" />
+            launcher:uri="http://www.sz.gov.cn/cn/"  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav1_2"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="http://www.shenzhentour.com/"  />
+        <shortcut  
+            launcher:icon="@drawable/nav1_3"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="http://www.szsi.gov.cn/"   />
+        <shortcut  
+            launcher:icon="@drawable/nav1_4"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="http://www.stc.gov.cn/"  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav1_5"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="http://shenzhen.8684.cn/"  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav1_6"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="http://www.szga.gov.cn/"  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav1_7"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri="http://www.shenzhenjiaoyu.com/"  
+            />
 
-        <shortcut  
-            launcher:icon="@drawable/left_button_on"  
-            launcher:screen="0"  
-            launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonc.com/"  
-            launcher:x="2"  
-            launcher:y="0" />
-        <shortcut  
-            launcher:icon="@drawable/left_button_on"  
-            launcher:screen="0"  
-            launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonc.com/"  
-            launcher:x="3"  
-            launcher:y="0" />
-        <favorite
-            launcher:packageName="com.android.browser"
-            launcher:className="com.android.browser.BrowserActivity"
-            launcher:title="@string/application_name"  
-            launcher:screen="0"
-            launcher:x="4"
-            launcher:y="0" />
     </folder>
 
     <folder  
-        launcher:icon="@drawable/icon_sub1_2_off"  
+        launcher:icon="@drawable/sub2_1"  
         launcher:screen="0"  
         launcher:title="@string/folder_name"  
         launcher:x="1"  
         launcher:y="0" 
         launcher:spanX="1"
         launcher:spanY="2">  
-        <favorite
-            launcher:packageName="com.android.browser"
-            launcher:className="com.android.browser.BrowserActivity"
-            launcher:title="@string/application_name"  
-            launcher:screen="0"
-            launcher:x="0"
-            launcher:y="0" />
         <shortcut  
-            launcher:icon="@drawable/right_button_on"  
+            launcher:icon="@drawable/nav2_1"  
             launcher:screen="0"  
             launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonb.com/"  
-            launcher:x="0"  
-            launcher:y="2" />
-
+            launcher:uri=""  
+            />
         <shortcut  
-            launcher:icon="@drawable/left_button_on"  
+            launcher:icon="@drawable/nav2_2"  
             launcher:screen="0"  
             launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonc.com/"  
-            launcher:x="0"  
-            launcher:y="3" />
-        <shortcut  
-            launcher:icon="@drawable/left_button_on"  
-            launcher:screen="0"  
-            launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonc.com/"  
-            launcher:x="0"  
-            launcher:y="4" />
+            launcher:uri=""  
+            />
     </folder>
 
-
     <folder  
-        launcher:icon="@drawable/icon_sub1_3_off"  
+        launcher:icon="@drawable/sub3_1"  
         launcher:screen="0"  
         launcher:title="@string/folder_name"  
         launcher:x="2"  
         launcher:y="0" 
         launcher:spanX="1"
         launcher:spanY="2">  
-        <favorite
-            launcher:packageName="com.android.browser"
-            launcher:className="com.android.browser.BrowserActivity"
-            launcher:title="@string/application_name"  
-            launcher:screen="0"
-            launcher:x="0"
-            launcher:y="0" />
         <shortcut  
-            launcher:icon="@drawable/right_button_on"  
+            launcher:icon="@drawable/nav3_1"  
             launcher:screen="0"  
             launcher:title="@string/application_name"  
-            launcher:uri="https://www.amazonb.com/"  
-            launcher:x="0"  
-            launcher:y="2" />
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav3_2"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  />
+        <shortcut  
+            launcher:icon="@drawable/nav3_3"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""   />
+        <shortcut  
+            launcher:icon="@drawable/nav3_4"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+    </folder>
+
+
+    <folder  
+        launcher:icon="@drawable/sub4_1"  
+        launcher:screen="0"  
+        launcher:title="@string/folder_name"  
+        launcher:x="3"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
+        <shortcut  
+            launcher:icon="@drawable/nav4_1"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav4_2"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  />
+        <shortcut  
+            launcher:icon="@drawable/nav4_3"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""   />
+        <shortcut  
+            launcher:icon="@drawable/nav4_4"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav4_5"  
+            launcher:screen="0"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+    </folder>
+
+
+    <folder  
+        launcher:icon="@drawable/sub5_1"  
+        launcher:screen="0"  
+        launcher:title="@string/folder_name"  
+        launcher:x="4"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
+        <shortcut  
+            launcher:icon="@drawable/nav5_1"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav5_2"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  />
+        <shortcut  
+            launcher:icon="@drawable/nav5_3"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""   />
+        <shortcut  
+            launcher:icon="@drawable/nav5_4"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav5_5"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav5_6"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+    </folder>
+
+    <folder  
+        launcher:icon="@drawable/sub6_1"  
+        launcher:screen="1"  
+        launcher:title="@string/folder_name"  
+        launcher:x="5"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
+        <shortcut  
+            launcher:icon="@drawable/nav6_1"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav6_2"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  />
+        <shortcut  
+            launcher:icon="@drawable/nav6_3"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""   />
+        <shortcut  
+            launcher:icon="@drawable/nav6_4"  
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav6_5"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav5_6"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+    </folder>
+
+    <folder  
+        launcher:icon="@drawable/sub7_1"  
+        launcher:screen="1"  
+        launcher:title="@string/folder_name"  
+        launcher:x="0"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
+        <favorite
+            launcher:icon="@drawable/nav6_1"
+            launcher:packageName="com.android.browser"
+            launcher:className="com.android.browser.BrowserActivity"
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav6_1"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+    </folder>
+    <folder  
+        launcher:icon="@drawable/sub8_1"  
+        launcher:screen="1"  
+        launcher:title="@string/folder_name"  
+        launcher:x="1"  
+        launcher:y="0" 
+        launcher:spanX="1"
+        launcher:spanY="2">  
+        <shortcut  
+            launcher:icon="@drawable/nav6_1"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
+        <shortcut  
+            launcher:icon="@drawable/nav6_1"
+            launcher:title="@string/application_name"  
+            launcher:uri=""  
+            />
     </folder>
 
     <!-- Right screen [1] -->

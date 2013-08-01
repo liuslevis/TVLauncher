@@ -30,12 +30,12 @@
     <!-- My change: CUSTOM customize folder cell（Open Window） size: 96 default -->
     <dimen name="folder_cell_width">200dp</dimen>
     <dimen name="folder_cell_height">200dp</dimen>
-    <dimen name="folder_width_gap">10dp</dimen>
-    <dimen name="folder_height_gap">10dp</dimen>
+    <dimen name="folder_width_gap">15dp</dimen>
+    <dimen name="folder_height_gap">0dp</dimen>
     
     <!--each icon padding top in folder
         also used in drag on workspace etc-->
-    <dimen name="app_icon_padding_top">20dp</dimen>
+    <dimen name="app_icon_padding_top">0dp</dimen>
 
 <!-- AppsCustomize -->
     <dimen name="apps_customize_tab_bar_height">60dp</dimen>
