@@ -39,6 +39,8 @@
         launcher:x="0"  
         launcher:y="1" />
     -->
+<!--
+
     <folder  
         launcher:icon="@drawable/sub1_1"  
         launcher:screen="0"  
@@ -259,7 +261,7 @@
             launcher:uri=""  
             />
     </folder>
-
+-->
     <folder  
         launcher:icon="@drawable/sub7_1"  
         launcher:screen="1"  
@@ -269,12 +271,12 @@
         launcher:spanX="1"
         launcher:spanY="2">  
         <favorite
-            launcher:icon="@drawable/nav6_1"
+            launcher:icon="@drawable/nav6_3"
             launcher:packageName="com.android.browser"
             launcher:className="com.android.browser.BrowserActivity"
             />
         <shortcut  
-            launcher:icon="@drawable/nav6_1"
+            launcher:icon="@drawable/nav6_2"
             launcher:title="@string/application_name"  
             launcher:uri=""  
             />
@@ -288,12 +290,12 @@
         launcher:spanX="1"
         launcher:spanY="2">  
         <shortcut  
-            launcher:icon="@drawable/nav6_1"
+            launcher:icon="@drawable/nav6_3"
             launcher:title="@string/application_name"  
             launcher:uri=""  
             />
         <shortcut  
-            launcher:icon="@drawable/nav6_1"
+            launcher:icon="@drawable/nav6_4"
             launcher:title="@string/application_name"  
             launcher:uri=""  
             />
@@ -303,6 +305,7 @@
   
 
     <!-- Hotseat (We use the screen as the position of the item in the hotseat) -->
+    <!--
     <favorite
         launcher:packageName="com.android.contacts"
         launcher:className="com.android.contacts.activities.DialtactsActivity"
@@ -325,10 +328,12 @@
         launcher:x="3"
         launcher:y="0" />
     <favorite
+        launcher:icon="@drawable/nav6_1"
         launcher:packageName="com.android.browser"
         launcher:className="com.android.browser.BrowserActivity"
         launcher:container="-101"
         launcher:screen="4"
         launcher:x="4"
         launcher:y="0" />
+    -->
 </favorites>

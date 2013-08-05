@@ -299,7 +299,7 @@ public class LauncherProvider extends ContentProvider {
         public void onCreate(SQLiteDatabase db) {
             if (LOGD) Log.d(TAG, "creating new launcher database");
 			String ClientName = SystemProperties.get("ro.client.name" ,"xinwu");
-            //My change: none, Actually get ClientName="ds5"
+            //My comment: get ClientName="ds5"
             mMaxId = 1;
 
             db.execSQL("CREATE TABLE favorites (" +
@@ -329,7 +329,8 @@ public class LauncherProvider extends ContentProvider {
                 sendAppWidgetResetNotify();
             }
 
-            // My change: Note: xml will load only without launcher.db files 
+            // My change: Note: xml will be loaded only without:
+                // /system/clientName_launcher.db & /data/data/com.android.launcher/already.launcher.ClientName
             if (!convertDatabase(db)) {
                 // Populate favorites table with initial favorites
                 if(ClientName.equals("u1a")){
@@ -844,7 +845,7 @@ public class LauncherProvider extends ContentProvider {
                             title = mContext.getResources().getString(R.string.folder_name);
                         }
                         values.put(LauncherSettings.Favorites.TITLE, title);
-                        // My change: NOTICE! Load db & create new Folder View here! Pass customize icon res.
+                        // My change: ADD! Load db & create new Folder View here! Pass customize icon res.
                         //long folderId = addFolder(db, values);
                         long folderId = addFolderWithCustomIcon(db, values, a);
 
@@ -865,18 +866,23 @@ public class LauncherProvider extends ContentProvider {
                             values.clear();
                             values.put(LauncherSettings.Favorites.CONTAINER, folderId);
 
+                            // My Change: Folder item initialize here, from default_workspace.xml
                             if (TAG_FAVORITE.equals(folder_item_name) && folderId >= 0) {
+                                // My change: DEL
+                                // long id =
+                                //     addAppShortcut(db, values, ar, packageManager, intent);
+                                // My change: ADD app shorcut with custom icon.(write to db: packageName, resName)
                                 long id =
-                                    addAppShortcut(db, values, ar, packageManager, intent);
-                                // My Change: Folder item initialize here, from default_workspace.xml
-                                Log.i("xxxx",">>>>>>>addAppShortcut: a favorite!");
+                                    addAppShortcutWithCustomIcon(db, values, ar, packageManager, intent);
+                                Log.i("xxxxx",">>>>>>>addAppShortcutWithCustomIcon: a favorite in foler!");
                                 if (id >= 0) {
                                     folderItems.add(id);
                                 }
                             } else if (TAG_SHORTCUT.equals(folder_item_name) && folderId >= 0) {
-                                long id = addUriShortcut(db, values, ar);
-                                // My Change: Folder item initialize here, from default_workspace.xml
-                                Log.i("xxxx",">>>>>>>addUriShotcut: a folder item!");
+                                // My change: ADD load iconRes/ iconPackage from default_workspace.xml to db
+                                // long id = addUriShortcut(db, values, ar);
+                                long id = addUriShortcutWithCustomIcon(db, values, ar);
+                                Log.i("xxxxx",">>>>>>>addUriShotcut: a uri in folder!");
                                 if (id >= 0) {
                                     folderItems.add(id);
                                 }
@@ -910,6 +916,55 @@ public class LauncherProvider extends ContentProvider {
             }
 
             return i;
+        }
+
+        // My change: ADD method. Add custom icon for app, writing iconRes,iconPackage to launcher.db
+        private long addAppShortcutWithCustomIcon(SQLiteDatabase db, ContentValues values, TypedArray a,
+                PackageManager packageManager, Intent intent) {
+            long id = -1;
+            ActivityInfo info;
+            String packageName = a.getString(R.styleable.Favorite_packageName);
+            String className = a.getString(R.styleable.Favorite_className);
+            final int iconResId = a.getResourceId(R.styleable.Favorite_icon, 0);
+            final int titleResId = a.getResourceId(R.styleable.Favorite_title, 0);
+
+            try {
+                ComponentName cn;
+                try {
+                    cn = new ComponentName(packageName, className);
+                    info = packageManager.getActivityInfo(cn, 0);
+                } catch (PackageManager.NameNotFoundException nnfe) {
+                    String[] packages = packageManager.currentToCanonicalPackageNames(
+                        new String[] { packageName });
+                    cn = new ComponentName(packages[0], className);
+                    info = packageManager.getActivityInfo(cn, 0);
+                }
+                id = generateNewId();
+                intent.setComponent(cn);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                values.put(Favorites.INTENT, intent.toUri(0));
+                values.put(Favorites.TITLE, info.loadLabel(packageManager).toString());
+                values.put(Favorites.ITEM_TYPE, Favorites.ITEM_TYPE_APPLICATION);
+                values.put(Favorites.SPANX, 1);
+                values.put(Favorites.SPANY, 1);
+                // My change: add resIcon, resPackage to db
+                values.put(Favorites.ICON_TYPE, Favorites.ICON_TYPE_RESOURCE);
+                values.put(Favorites.ICON_PACKAGE, mContext.getPackageName());
+                values.put(Favorites.ICON_RESOURCE, mContext.getResources().getResourceName(iconResId));
+                // My change: TODO ??Get packageName here, but not in LauncherModel
+                Log.v("xxxxx",">>>>>>>>>>>>>>>>> 3 packageName, resName = "+mContext.getPackageName()+","+mContext.getResources().getResourceName(iconResId));
+
+                // end my change
+                values.put(Favorites._ID, generateNewId());
+                if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {
+                    return -1;
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.w(TAG, "Unable to add favorite: " + packageName +
+                        "/" + className, e);
+            }
+            return id;
         }
 
         private long addAppShortcut(SQLiteDatabase db, ContentValues values, TypedArray a,
@@ -970,7 +1025,7 @@ public class LauncherProvider extends ContentProvider {
             final int iconResId = a.getResourceId(R.styleable.Favorite_icon, 0);
             final int titleResId = a.getResourceId(R.styleable.Favorite_title, 0);
             if (iconResId == 0 || titleResId == 0) {
-                Log.i("xxxx", "FolderWithCustomIcon is missing title or icon resource ID");
+                Log.i("xxxxx", "FolderWithCustomIcon is missing title or icon resource ID");
                 return -1;
             }
             values.put(Favorites.ICON_TYPE, Favorites.ICON_TYPE_RESOURCE);
@@ -981,8 +1036,7 @@ public class LauncherProvider extends ContentProvider {
             //load spanx y from xml, save to launcher.db when init
             String spanX = a.getString(R.styleable.Favorite_spanX);
             String spanY = a.getString(R.styleable.Favorite_spanY);
-            Log.i("xxxx", "addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
-            Log.i("xxxx", "addFolderWithCustomIcon:iconType = "+Favorites.ICON_TYPE_RESOURCE+" SpanX Y="+spanX+" "+spanY);
+            Log.i("xxxxx", "addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
             values.put(Favorites.SPANX, spanX);
             values.put(Favorites.SPANY, spanY);
             // end my change
@@ -1093,6 +1147,57 @@ public class LauncherProvider extends ContentProvider {
             return allocatedAppWidgets;
         }
 
+        // My change: ADD method. For adding app icon in folder
+        private long addUriShortcutWithCustomIcon(SQLiteDatabase db, ContentValues values,
+                TypedArray a) {
+            Resources r = mContext.getResources();
+
+            final int iconResId = a.getResourceId(R.styleable.Favorite_icon, 0);
+            final int titleResId = a.getResourceId(R.styleable.Favorite_title, 0);
+
+            Intent intent;
+            String uri = null;
+            try {
+                uri = a.getString(R.styleable.Favorite_uri);
+                intent = Intent.parseUri(uri, 0);
+            } catch (URISyntaxException e) {
+                Log.w(TAG, "Shortcut has malformed uri: " + uri);
+                return -1; // Oh well
+            }
+
+            if (iconResId == 0 || titleResId == 0) {
+                Log.w(TAG, "Shortcut is missing title or icon resource ID");
+                return -1;
+            }
+
+            long id = generateNewId();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            values.put(Favorites.INTENT, intent.toUri(0));
+            values.put(Favorites.TITLE, r.getString(titleResId));
+            values.put(Favorites.ITEM_TYPE, Favorites.ITEM_TYPE_SHORTCUT);
+            values.put(Favorites.SPANX, 1);
+            values.put(Favorites.SPANY, 1);
+            values.put(Favorites.ICON_TYPE, Favorites.ICON_TYPE_RESOURCE);
+            values.put(Favorites.ICON_PACKAGE, mContext.getPackageName());
+            values.put(Favorites.ICON_RESOURCE, r.getResourceName(iconResId));
+            values.put(Favorites._ID, id);
+
+            // My change: ADD customize iconPackage/ iconRes here loading from xml( Nothing happened but db change.)
+            String icon = a.getString(R.styleable.Favorite_icon);// get icon "drawable@where"
+            String packageName = mContext.getPackageName();//get null?
+            String resourceName = r.getResourceName(iconResId);//get null
+            // end my change
+
+            if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {
+                Log.i("xxxxx", "addUriShortcutWithCustomIcon: Failed, id="+id);
+                return -1;
+            }
+            Log.i("xxxxx", "addUriShortcutWithCustomIcon: Finish, id="+id);
+            return id;
+
+        }
+    
+
         private long addUriShortcut(SQLiteDatabase db, ContentValues values,
                 TypedArray a) {
             Resources r = mContext.getResources();
@@ -1128,8 +1233,10 @@ public class LauncherProvider extends ContentProvider {
             values.put(Favorites._ID, id);
 
             if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {
+                Log.v("xxxxx",">>>>>faild add db");
                 return -1;
             }
+            Log.v("xxxxx",">>>>>succ add db,id = "+id);
             return id;
         }
     }

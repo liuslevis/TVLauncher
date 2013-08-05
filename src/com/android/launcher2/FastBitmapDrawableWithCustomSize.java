@@ -56,15 +56,12 @@ class FastBitmapDrawableWithCustomSize extends Drawable {
             mWidth = mHeight = 0;
 
         }
-        Log.v("xxxxx",">>>>>>>>>>>>>>>>>>FastBitmapDrawableWithCustomSize(): original bitmap.w/h="+b.getWidth()+","+b.getHeight());
     }
 
     @Override
     public void draw(Canvas canvas) {
         final Rect r = getBounds();
         canvas.drawBitmap(mBitmap, r.left, r.top, mPaint);
-        Log.v("xxxx","FastBitmapDrawableWithCustomSize.draw(): getBounds().left,top="+r.left+","+r.top);
-        
     }
 
     @Override
@@ -120,17 +117,6 @@ class FastBitmapDrawableWithCustomSize extends Drawable {
             mWidth = mHeight = 0;
         }
     }
-
-    // // My change: ADD
-    // public void setBitmapWithCustomSize(Bitmap b, int width, int height) {
-    //     mBitmap = b;
-    //     if (b != null && width>=0 && height>=0) {
-    //         mWidth = width;
-    //         mHeight = height;
-    //     } else {
-    //         mWidth = mHeight = 0;
-    //     }
-    // }
 
     public Bitmap getBitmap() {
         return mBitmap;

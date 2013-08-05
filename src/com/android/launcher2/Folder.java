@@ -82,6 +82,8 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     private int mMode = PARTIAL_GROW;
     private boolean mRearrangeOnClose = false;
     private FolderIcon mFolderIcon;
+    // My change:ADD load "app_icon_size" from dimens.xml
+    private int icon_size_in_folder;
     private int mMaxCountX;
     private int mMaxCountY;
     private int mMaxNumItems;
@@ -126,6 +128,9 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
         Resources res = getResources();
         // My comment: set folder max count x y here in xml
+        // My change:ADD load "app_icon_size" from dimens.xml
+        icon_size_in_folder = (int) res.getDimension(R.dimen.app_icon_size);
+        
         mMaxCountX = res.getInteger(R.integer.folder_max_count_x);
         mMaxCountY = res.getInteger(R.integer.folder_max_count_y);
         mMaxNumItems = res.getInteger(R.integer.folder_max_num_items);
@@ -133,6 +138,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             mMaxCountX = LauncherModel.getCellCountX();
             mMaxCountY = LauncherModel.getCellCountY();
             mMaxNumItems = mMaxCountX * mMaxCountY;
+
         }
 
         mInputMethodManager = (InputMethodManager)
@@ -318,6 +324,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     }
 
     void bind(FolderInfo info) {
+        Log.v("xxxxx","A Folder bind shortcuts");
         mInfo = info;
         ArrayList<ShortcutInfo> children = info.contents;
         ArrayList<ShortcutInfo> overflow = new ArrayList<ShortcutInfo>();
@@ -536,18 +543,17 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     }
 
     // My comment: add a icon layout in folder opened layout
-    // My change: TODO reset icon size
     protected boolean createAndAddShortcut(ShortcutInfo item) {
         final TextView textView =
             (TextView) mInflater.inflate(R.layout.application, this, false);
-        //textView.setCompoundDrawablesWithIntrinsicBounds(null,
-        //        new FastBitmapDrawable(item.getIcon(mIconCache)), null, null);
-        // My change: CUSTOM icon size in opened folder window
-            //My BUG:Icon Image not clear, 
-            //My change: TODO item.getIcon(mIconCache) gives 72x72 img, set it!
+
         textView.setCompoundDrawablesWithIntrinsicBounds(null,
-                new FastBitmapDrawableWithCustomSize(item.getIcon(mIconCache), 200, 200), null, null);
-        textView.setText(item.title);
+            //new FastBitmapDrawable(item.getIcon(mIconCache)), null, null);
+        // My change:CUSTOM set size of icon in folder
+        // My change: ADD Scaled icon in new method, DEL tittle 
+            // My change: TODO get APK icon customized
+            new FastBitmapDrawableWithCustomSize(item.getIcon(mIconCache),icon_size_in_folder,icon_size_in_folder), null, null);
+        //textView.setText(item.title);
         textView.setTag(item);
 
         textView.setOnClickListener(this);
@@ -566,14 +572,8 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
         CellLayout.LayoutParams lp =
             new CellLayout.LayoutParams(item.cellX, item.cellY, item.spanX, item.spanY);
-        //My change: set layout of icon of a opened folder
-        lp.setWidth(200);
-        lp.setHeight(200);
-        lp.setX(200);
-        lp.setY(200);// Not work! Try to change mContent.addViewToCel..
-        Log.v("xxxx",">>>>>>>>createAndAddShortcut in Folder lp.Width Height x y=  "+lp.getWidth()+","+lp.getHeight()+","+lp.getX()+","+lp.getY());
         boolean insert = false;
-        textView.setOnKeyListener(new FolderKeyEventListener());// IS THIS ICON?
+        textView.setOnKeyListener(new FolderKeyEventListener());
         // mContent is Celllaout
         mContent.addViewToCellLayout(textView, insert ? 0 : -1, (int)item.id, lp, true);
         return true;
