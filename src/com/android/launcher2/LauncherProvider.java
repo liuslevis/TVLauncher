@@ -825,7 +825,12 @@ public class LauncherProvider extends ContentProvider {
                     values.put(LauncherSettings.Favorites.CELLY, y);
 
                     if (TAG_FAVORITE.equals(name)) {
-                        long id = addAppShortcut(db, values, a, packageManager, intent);
+                        // My change: DEL
+                        // long id = addAppShortcut(db, values, a, packageManager, intent);
+                        // My change: ADD load uri iconRes/ iconPackage from default_workspace.xml to db
+                        Log.i("xxxxx","\nadd App Shortcut: on desktop!");
+                        long id = addAppShortcutWithCustomIcon(db, values, a, packageManager, intent);
+                        // end my change
                         added = id >= 0;
                     } else if (TAG_SEARCH.equals(name)) {
                         added = addSearchWidget(db, values);
@@ -834,7 +839,12 @@ public class LauncherProvider extends ContentProvider {
                     } else if (TAG_APPWIDGET.equals(name)) {
                         added = addAppWidget(db, values, a, packageManager);
                     } else if (TAG_SHORTCUT.equals(name)) {
-                        long id = addUriShortcut(db, values, a);
+                        // My change: DEL
+                        // long id = addUriShortcut(db, values, a);
+                        // My change: ADD load uri iconRes/ iconPackage from default_workspace.xml to db
+                        Log.i("xxxxx","\nadd Uri Shortcut: on desktop!");
+                        long id = addUriShortcutWithCustomIcon(db, values, a);
+                        // end my change
                         added = id >= 0;
                     } else if (TAG_FOLDER.equals(name)) {
                         String title;
@@ -847,6 +857,7 @@ public class LauncherProvider extends ContentProvider {
                         values.put(LauncherSettings.Favorites.TITLE, title);
                         // My change: ADD! Load db & create new Folder View here! Pass customize icon res.
                         //long folderId = addFolder(db, values);
+                        Log.i("xxxxx","\nCreate Folder: on desktop!");
                         long folderId = addFolderWithCustomIcon(db, values, a);
 
                         added = folderId >= 0;
@@ -871,18 +882,21 @@ public class LauncherProvider extends ContentProvider {
                                 // My change: DEL
                                 // long id =
                                 //     addAppShortcut(db, values, ar, packageManager, intent);
-                                // My change: ADD app shorcut with custom icon.(write to db: packageName, resName)
+                                // My change: ADD load app iconRes/ iconPackage from default_workspace.xml to db
+                                Log.i("xxxxx","\nadd App Shortcut: in foler!");
                                 long id =
                                     addAppShortcutWithCustomIcon(db, values, ar, packageManager, intent);
-                                Log.i("xxxxx",">>>>>>>addAppShortcutWithCustomIcon: a favorite in foler!");
+                                // end my change
                                 if (id >= 0) {
                                     folderItems.add(id);
                                 }
                             } else if (TAG_SHORTCUT.equals(folder_item_name) && folderId >= 0) {
-                                // My change: ADD load iconRes/ iconPackage from default_workspace.xml to db
+                                // My change: DEL
                                 // long id = addUriShortcut(db, values, ar);
+                                // My change: ADD load uri iconRes/ iconPackage from default_workspace.xml to db
+                                Log.i("xxxxx","\nadd Uri Shortcut: in folder!");
                                 long id = addUriShortcutWithCustomIcon(db, values, ar);
-                                Log.i("xxxxx",">>>>>>>addUriShotcut: a uri in folder!");
+                                // end my change
                                 if (id >= 0) {
                                     folderItems.add(id);
                                 }
@@ -925,15 +939,16 @@ public class LauncherProvider extends ContentProvider {
             ActivityInfo info;
             String packageName = a.getString(R.styleable.Favorite_packageName);
             String className = a.getString(R.styleable.Favorite_className);
+            // My change:ADD load from xml
             final int iconResId = a.getResourceId(R.styleable.Favorite_icon, 0);
-            final int titleResId = a.getResourceId(R.styleable.Favorite_title, 0);
-
+            Resources r = mContext.getResources();
+            // end my change
             try {
                 ComponentName cn;
                 try {
                     cn = new ComponentName(packageName, className);
                     info = packageManager.getActivityInfo(cn, 0);
-                } catch (PackageManager.NameNotFoundException nnfe) {
+                } catch (PackageManager.NameNotFoundException nnfe) {                    
                     String[] packages = packageManager.currentToCanonicalPackageNames(
                         new String[] { packageName });
                     cn = new ComponentName(packages[0], className);
@@ -948,22 +963,26 @@ public class LauncherProvider extends ContentProvider {
                 values.put(Favorites.ITEM_TYPE, Favorites.ITEM_TYPE_APPLICATION);
                 values.put(Favorites.SPANX, 1);
                 values.put(Favorites.SPANY, 1);
-                // My change: add resIcon, resPackage to db
+                // My change: ADD add resIcon, resPackage to db
+                if (iconResId != 0){// User customized icon in default_workspace.xml
                 values.put(Favorites.ICON_TYPE, Favorites.ICON_TYPE_RESOURCE);
                 values.put(Favorites.ICON_PACKAGE, mContext.getPackageName());
-                values.put(Favorites.ICON_RESOURCE, mContext.getResources().getResourceName(iconResId));
-                // My change: TODO ??Get packageName here, but not in LauncherModel
-                Log.v("xxxxx",">>>>>>>>>>>>>>>>> 3 packageName, resName = "+mContext.getPackageName()+","+mContext.getResources().getResourceName(iconResId));
-
+                    String resourceName = r.getResourceName(iconResId);//error cant get if it's hotseat
+                    Log.i("xxxxx", "addAppShortcutWithCustomIcon: Use custom icon");  
+                    values.put(Favorites.ICON_RESOURCE, resourceName);
+                } else{
+                    Log.i("xxxxx", "addAppShortcutWithCustomIcon: (Hotseat likely) Use default icon");  
+                }
                 // end my change
                 values.put(Favorites._ID, generateNewId());
-                if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {
+                if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {        
                     return -1;
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 Log.w(TAG, "Unable to add favorite: " + packageName +
                         "/" + className, e);
             }
+            Log.i("xxxxx", "addAppShortcutWithCustomIcon: Finish, id="+id);
             return id;
         }
 
@@ -1036,7 +1055,7 @@ public class LauncherProvider extends ContentProvider {
             //load spanx y from xml, save to launcher.db when init
             String spanX = a.getString(R.styleable.Favorite_spanX);
             String spanY = a.getString(R.styleable.Favorite_spanY);
-            Log.i("xxxxx", "addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
+            // Log.i("xxxxx", "    addFolderWithCustomIcon:ICON_PACKAGE="+mContext.getPackageName()+", ICON_RESOURCE="+r.getResourceName(iconResId));
             values.put(Favorites.SPANX, spanX);
             values.put(Favorites.SPANY, spanY);
             // end my change
@@ -1189,7 +1208,6 @@ public class LauncherProvider extends ContentProvider {
             // end my change
 
             if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {
-                Log.i("xxxxx", "addUriShortcutWithCustomIcon: Failed, id="+id);
                 return -1;
             }
             Log.i("xxxxx", "addUriShortcutWithCustomIcon: Finish, id="+id);
@@ -1233,10 +1251,8 @@ public class LauncherProvider extends ContentProvider {
             values.put(Favorites._ID, id);
 
             if (dbInsertAndCheck(this, db, TABLE_FAVORITES, null, values) < 0) {
-                Log.v("xxxxx",">>>>>faild add db");
                 return -1;
             }
-            Log.v("xxxxx",">>>>>succ add db,id = "+id);
             return id;
         }
     }

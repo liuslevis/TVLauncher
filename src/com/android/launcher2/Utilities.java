@@ -34,6 +34,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.android.launcher.R;
 
@@ -95,9 +96,10 @@ final class Utilities {
             if (sIconWidth == -1) {
                 initStatics(context);
             }
-
             int width = sIconWidth;
             int height = sIconHeight;
+
+            // Log.v("xxxxx",">>>>>>>>>>>>>createIconBitmap size w,h="+width+","+height);
 
             if (icon instanceof PaintDrawable) {
                 PaintDrawable painter = (PaintDrawable) icon;

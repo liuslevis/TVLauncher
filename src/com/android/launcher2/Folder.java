@@ -324,7 +324,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     }
 
     void bind(FolderInfo info) {
-        Log.v("xxxxx","A Folder bind shortcuts");
+        Log.v("xxxxx","\nA Folder binds shortcuts");
         mInfo = info;
         ArrayList<ShortcutInfo> children = info.contents;
         ArrayList<ShortcutInfo> overflow = new ArrayList<ShortcutInfo>();
@@ -548,10 +548,9 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             (TextView) mInflater.inflate(R.layout.application, this, false);
 
         textView.setCompoundDrawablesWithIntrinsicBounds(null,
-            //new FastBitmapDrawable(item.getIcon(mIconCache)), null, null);
+            // new FastBitmapDrawable(item.getIcon(mIconCache)), null, null);
         // My change:CUSTOM set size of icon in folder
-        // My change: ADD Scaled icon in new method, DEL tittle 
-            // My change: TODO get APK icon customized
+        // My change: ADD Scaled icon in new method, DEL tittle
             new FastBitmapDrawableWithCustomSize(item.getIcon(mIconCache),icon_size_in_folder,icon_size_in_folder), null, null);
         //textView.setText(item.title);
         textView.setTag(item);

@@ -64,8 +64,8 @@ class ShortcutInfo extends ItemInfo {
 
     ShortcutInfo() {
         itemType = LauncherSettings.BaseLauncherColumns.ITEM_TYPE_SHORTCUT;
-        // My comment: this ctor work, other not; Then setIcon(bitmap) @ LauncherModel.java
-        Log.v("xxxxx","ShortcutInfo()");
+        // My comment: Only this ctor work, other not; Then setIcon(bitmap) @ LauncherModel.java
+        // Log.v("xxxxx","ShortcutInfo()");
     }
     
     public ShortcutInfo(ShortcutInfo info) {
@@ -99,12 +99,12 @@ class ShortcutInfo extends ItemInfo {
     public Bitmap getIcon(IconCache iconCache) {
         if (mIcon == null) {
             // My comment: not work
-            Log.v("xxxxx","ShortcutInfo.getIcon(): mIcon==null,mIcon = iconCache.getIcon(this.intent);");
+            // Log.v("xxxxx","ShortcutInfo.getIcon(): mIcon==null,mIcon = iconCache.getIcon(this.intent);");
             mIcon = iconCache.getIcon(this.intent);
             this.usingFallbackIcon = iconCache.isDefaultIcon(mIcon);
         }
         // My comment : This work, mIcon never null.
-        Log.v("xxxxx","ShortcutInfo.getIcon(): mIcon!=null,return mIcon;");
+        // Log.v("xxxxx","ShortcutInfo.getIcon(): mIcon!=null,return mIcon;");
         return mIcon;
     }
 

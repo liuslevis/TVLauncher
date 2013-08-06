@@ -1048,17 +1048,14 @@ public class LauncherModel extends BroadcastReceiver {
 
                             // My change: ADD load shortcut with custom icon
                             if (itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION) {
-                                Log.v("xxxxx",">>>>>>>loadWorkspace(): prepare app's icon,info etc. ");
+                                Log.v("xxxxx","\nloadWorkspace(): prepare app's icon,info etc. ");
                                 // info = getShortcutInfo(manager, intent, context, c, iconIndex,
                                 //      titleIndex, mLabelCache);
                                 // My change:
-                                String iconPackage = c.getString(iconPackageIndex);
-                                String iconRes =  c.getString(iconResourceIndex);
-                                Log.v("xxxxx",">>>>>>>>>>>>>>>>>>>>>>> Icon pack,res:"+","+iconPackage+","+iconRes);
                                 info = getShortcutInfoWithCustomAppIcon(manager, intent, context, c, iconIndex,
                                         titleIndex, mLabelCache,iconPackageIndex, iconResourceIndex);
                             } else {// My comment: ITEM_TYPE_SHORTCUT
-                                Log.v("xxxxx",">>>>>>>loadWorkspace(): prepare shorcut's icon,info etc.");
+                                Log.v("xxxxx","\nloadWorkspace(): prepare shorcut's icon,info etc.");
                                 info = getShortcutInfo(c, context, iconTypeIndex,
                                         iconPackageIndex, iconResourceIndex, iconIndex,
                                         titleIndex);
@@ -1718,6 +1715,7 @@ public class LauncherModel extends BroadcastReceiver {
     // My change: ADD method: get custom icon( high res) for APP
     public ShortcutInfo getShortcutInfoWithCustomAppIcon(PackageManager manager, Intent intent, Context context,
             Cursor c, int iconIndex, int titleIndex, HashMap<Object, CharSequence> labelCache, int iconPackageIndex, int iconResourceIndex) {
+        Log.v("xxxxx",">>>>>>>>>>>>>>>>>>>>>>>>>>>>getShortcutInfoWithCustomAppIcon()");
         Bitmap icon = null;
         final ShortcutInfo info = new ShortcutInfo();
 
@@ -1747,35 +1745,38 @@ public class LauncherModel extends BroadcastReceiver {
         final ResolveInfo resolveInfo = manager.resolveActivity(intent, 0);
         if (resolveInfo != null) {
             // My change: DEL
-            icon = mIconCache.getIcon(componentName, resolveInfo, labelCache);
+            // icon = mIconCache.getIcon(componentName, resolveInfo, labelCache);
             
             // My change: ADD set custom icon set in db after LauncherProvider.loadFavourate() ran.
             String packageName = c.getString(iconPackageIndex);//get null?
             String resourceName = c.getString(iconResourceIndex);//get null
             Log.v("xxxxx",">>>>>>>>>>>>>>>>> 1 packageName, resName="+packageName+","+resourceName);
-            // My change: TODO Fix bug when hotseat exist in default_workspace.xml 
-            // packageName = "com.android.launcher";
-            // resourceName = "com.android.launcher:drawable/nav6_3";
+            // My change: TODO Fix bug when hotseat exist in default_workspace.xml
+            // when loading hotseat, both is null. pass a default value
+            if ( packageName == null || resourceName == null ) {
+                packageName = "com.android.launcher";
+                resourceName = "com.android.launcher:drawable/nav6_1";
+            }
             Log.v("xxxxx",">>>>>>>>>>>>>>>>> 2 packageName, resName="+packageName+","+resourceName);
             Resources resources = context.getResources();
             final int id = resources.getIdentifier(resourceName, null, null);
             icon = Utilities.createIconBitmap(
                              mIconCache.getFullResIcon(resources, id), context);
-            Log.v("xxxxx",">>>>>>>>>>>>Loading APP icon, size:w,h="+icon.getWidth()+","+icon.getHeight());
+            Log.v("xxxxx",">>>>>>>>>>>>>>>>> set custom APP icon, size:w,h="+icon.getWidth()+","+icon.getHeight());
         }
         // My comment: Will not set icon below.
         // the db
         if (icon == null) {
             if (c != null) {
                 icon = getIconFromCursor(c, iconIndex, context);
-                Log.v("xxxxx",">>>>>>>>>>>>>>>>>>>>>>>>>icon from db");
+                Log.v("xxxxx",">>>>>>>>>set icon from db");//not work
             }
         }
         // the fallback icon
         if (icon == null) {
             icon = getFallbackIcon();
             info.usingFallbackIcon = true;
-            Log.v("xxxxx",">>>icon from fallback");
+            Log.v("xxxxx",">>>>>>>>>set icon from fallback");//not work
         }
         info.setIcon(icon);
 
@@ -1812,7 +1813,7 @@ public class LauncherModel extends BroadcastReceiver {
     private ShortcutInfo getShortcutInfo(Cursor c, Context context,
             int iconTypeIndex, int iconPackageIndex, int iconResourceIndex, int iconIndex,
             int titleIndex) {
-
+        Log.v("xxxxx",">>>>>>>>>>>>>>>>>>>>>>>>>>>>getShortcutInfo()");
         Bitmap icon = null;
         final ShortcutInfo info = new ShortcutInfo();
         info.itemType = LauncherSettings.Favorites.ITEM_TYPE_SHORTCUT;
@@ -1823,17 +1824,16 @@ public class LauncherModel extends BroadcastReceiver {
         int iconType = c.getInt(iconTypeIndex);
         switch (iconType) {
         case LauncherSettings.Favorites.ICON_TYPE_RESOURCE:
-        //My comment: Icon in Launcher is this type
+        //My comment: custom Icon in Launcher is ICON_TYPE_RESOURCE
             String packageName = c.getString(iconPackageIndex);
             String resourceName = c.getString(iconResourceIndex);
             PackageManager packageManager = context.getPackageManager();
             info.customIcon = false;
             // the resource
             try {
-                Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_RESOURCE try");
                 Resources resources = packageManager.getResourcesForApplication(packageName);
                 if (resources != null) {
-                    Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_RESOURCE try if");
+                    Log.v("xxxxx",">>>>>>>>>set icon from packageManager");
                     final int id = resources.getIdentifier(resourceName, null, null);
                     // My change: to get an full size icon instead of 72*72
                     // My change: CUSTOM load "app_icon_size" in dimens.xml; show icon in folder
@@ -1842,21 +1842,20 @@ public class LauncherModel extends BroadcastReceiver {
                             mIconCache.getFullResIcon(resources, id), context);
                 }
             } catch (Exception e) {
-                Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_RESOURCE drop");//not work
                 // drop this.  we have other places to look for icons
             }
             // the db
             if (icon == null) {
-                Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_RESOURCE db");//not work
+                Log.v("xxxxx",">>>>>>>>>set icon from db");//not work
                 icon = getIconFromCursor(c, iconIndex, context);
             }
             // the fallback icon
             if (icon == null) {
-                Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_RESOURCE fb");//not work
+                Log.v("xxxxx",">>>>>>>>>set icon from fallback");//not work
                 icon = getFallbackIcon();
                 info.usingFallbackIcon = true;
             }
-            Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_RESOURCE end");
+            Log.v("xxxxx",">>>>>>>>>set ICON_TYPE_RESOURCE end");
             break;
         case LauncherSettings.Favorites.ICON_TYPE_BITMAP:
             icon = getIconFromCursor(c, iconIndex, context);
@@ -1867,7 +1866,7 @@ public class LauncherModel extends BroadcastReceiver {
             } else {
                 info.customIcon = true;
             }
-            Log.v("xxxxx",">>>>>>>>>>>>>ICON_TYPE_BITMAP");
+            Log.v("xxxxx",">>>>>>>>>set ICON_TYPE_BITMAP end");
             break;
         default:
             icon = getFallbackIcon();
@@ -1876,7 +1875,7 @@ public class LauncherModel extends BroadcastReceiver {
             break;
         }
         info.setIcon(icon);
-        Log.v("xxxxx","LaunModel:ShortcutInfo.setIcon(Bitmap b) width,height="+icon.getWidth()+","+icon.getHeight());
+        // Log.v("xxxxx","LaunModel:ShortcutInfo.setIcon(Bitmap b) width,height="+icon.getWidth()+","+icon.getHeight());
         return info;
     }
 
