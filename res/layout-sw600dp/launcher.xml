@@ -23,6 +23,33 @@
     android:layout_height="match_parent"
     android:focusable="false">
 
+    <include layout="@layout/workspace"
+        android:id="@+id/workspace"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include layout="@layout/qsb_bar"
+        android:id="@+id/qsb_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qsb_bar_height"
+        android:layout_gravity="top" />
+
+
+
+    <include layout="@layout/apps_customize_pane"
+        android:id="@+id/apps_customize_pane"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
+    <!-- my change: ADD hotseat-->
+    <include layout="@layout/hotseat"
+        android:id="@+id/hotseat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_bar_height_plus_padding"
+        android:orientation="horizontal" 
+        android:layout_gravity="bottom" />
+    <!-- end my change -->
     <!-- My change CUSTOM: defines in res/laout-land/launcher.xml not work. Define hotseat below.-->
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,9 +58,10 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <LinearLayout 
-            android:orientation="horizontal" 
-            android:layout_width="fill_parent" 
-            android:layout_height="fill_parent" 
+            android:background="@color/darkkhaki"
+            android:layout_gravity="left|center_vertical"
+            android:layout_width="wrap_content" 
+            android:layout_height="match_parent" 
             android:layout_weight="1">
             <Button
                 android:id="@+id/workspace_left_btn"
@@ -41,13 +69,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="3.0dip"
-                android:background="@drawable/left_button"
+                android:background="@drawable/left_button_effects"
                 android:onClick="onClickPrevScreenButton"/>
         </LinearLayout>
         <LinearLayout 
-            android:orientation="horizontal" 
-            android:layout_width="fill_parent" 
-            android:layout_height="fill_parent" 
+            android:background="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content" 
+            android:layout_height="match_parent" 
+            android:layout_weight="50"
+            android:visibility="invisible">
+        </LinearLayout>
+        <LinearLayout 
+            android:background="@color/darkgrey"
+            android:layout_gravity="left|center_vertical"
+            android:layout_width="wrap_content" 
+            android:layout_height="match_parent" 
             android:gravity="right" 
             android:layout_weight="1">
             <Button
@@ -56,36 +93,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginLeft="3.0dip"
-                android:background="@drawable/right_button"
+                android:background="@drawable/right_button_effects"
                 android:onClick="onClickNextScreenButton"/>
         </LinearLayout>
     </LinearLayout>    
 
-    <!-- my change: ADD hotseat-->
-    <include layout="@layout/hotseat"
-        android:id="@+id/hotseat"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_bar_height_plus_padding"
-        android:orientation="vertical" 
-        android:layout_gravity="bottom" />
 
-    <include layout="@layout/workspace"
-        android:id="@+id/workspace"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-    <include layout="@layout/qsb_bar"
-        android:id="@+id/qsb_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/qsb_bar_height"
-        android:layout_gravity="top" />
-
-    <!-- end my change -->
-
-    <include layout="@layout/apps_customize_pane"
-        android:id="@+id/apps_customize_pane"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible" />
 
 </com.android.launcher2.DragLayer>

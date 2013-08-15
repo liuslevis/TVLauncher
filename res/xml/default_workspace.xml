@@ -329,7 +329,7 @@
         launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="1"
-        launcher:x="1"
+        launcher:x="0"
         launcher:y="0" />
     <favorite
         launcher:packageName="com.android.browser"
@@ -337,7 +337,7 @@
         launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="3"
-        launcher:x="3"
+        launcher:x="0"
         launcher:y="0" />
     <favorite
         launcher:packageName="com.android.browser"
@@ -345,6 +345,6 @@
         launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="4"
-        launcher:x="4"
+        launcher:x="0"
         launcher:y="0" />
 </favorites>
