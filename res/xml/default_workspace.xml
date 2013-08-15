@@ -273,11 +273,15 @@
         <favorite
             launcher:icon="@drawable/nav6_3"
             launcher:packageName="com.android.browser"
-            launcher:className="com.android.browser.BrowserActivity"
+            launcher:className="com.android.browser.BrowserActivity" 
+            launcher:spanX="1"
+            launcher:spanY="2"
             />
         <shortcut  
             launcher:icon="@drawable/nav6_2"
-            launcher:title="@string/application_name"  
+            launcher:title="@string/application_name"   
+            launcher:spanX="1"
+            launcher:spanY="2"
             launcher:uri=""  
             />
     </folder>
@@ -291,12 +295,16 @@
         launcher:spanY="2">  
         <shortcut  
             launcher:icon="@drawable/nav6_3"
-            launcher:title="@string/application_name"  
+            launcher:title="@string/application_name"   
+            launcher:spanX="1"
+            launcher:spanY="2"
             launcher:uri=""  
             />
         <shortcut  
             launcher:icon="@drawable/nav6_4"
-            launcher:title="@string/application_name"  
+            launcher:title="@string/application_name"   
+            launcher:spanX="1"
+            launcher:spanY="2"
             launcher:uri=""  
             />
     </folder>
@@ -309,6 +317,7 @@
     <favorite
         launcher:packageName="com.android.browser"
         launcher:className="com.android.browser.BrowserActivity"
+        launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="0"
         launcher:x="0"
@@ -317,6 +326,7 @@
     <favorite
         launcher:packageName="com.android.browser"
         launcher:className="com.android.browser.BrowserActivity"
+        launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="1"
         launcher:x="1"
@@ -324,6 +334,7 @@
     <favorite
         launcher:packageName="com.android.browser"
         launcher:className="com.android.browser.BrowserActivity"
+        launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="3"
         launcher:x="3"
@@ -331,6 +342,7 @@
     <favorite
         launcher:packageName="com.android.browser"
         launcher:className="com.android.browser.BrowserActivity"
+        launcher:icon="@drawable/nav6_4"
         launcher:container="-101"
         launcher:screen="4"
         launcher:x="4"

@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -55,6 +56,10 @@ public class Hotseat extends FrameLayout {
         mCellCountY = a.getInt(R.styleable.Hotseat_cellCountY, -1);
         mIsLandscape = context.getResources().getConfiguration().orientation ==
             Configuration.ORIENTATION_LANDSCAPE;
+        //My change: Always landscape display
+        Log.v("xxxxx","\n\nmIsLandscape = " + mIsLandscape);
+        mIsLandscape = true;
+        // end my change
     }
 
     public void setup(Launcher launcher) {

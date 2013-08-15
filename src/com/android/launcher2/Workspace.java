@@ -503,6 +503,8 @@ public class Workspace extends SmoothPagedView
         if (container == LauncherSettings.Favorites.CONTAINER_HOTSEAT) {
             layout = mLauncher.getHotseat().getLayout();
             child.setOnKeyListener(null);
+            
+
 
             // Hide folder title in the hotseat
             if (child instanceof FolderIcon) {
@@ -528,6 +530,9 @@ public class Workspace extends SmoothPagedView
         }
 
         CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
+        Log.v("xxxxx","\nWorkspace: add a HOTSEAT para x,y,sreen,spanX,spanY="+x+","+y+","+screen+","+spanX+","+spanY);
+        Log.v("xxxxx",  "Workspace: add a HOTSEAT item x,y,sreen,spanX,spanY="+lp.cellX+","+lp.cellY+","+screen+","+lp.cellHSpan+","+lp.cellVSpan);
+        
         if (lp == null) {
             lp = new CellLayout.LayoutParams(x, y, spanX, spanY);
         } else {
@@ -549,6 +554,7 @@ public class Workspace extends SmoothPagedView
             // outside of the defined grid
             // maybe we should be deleting these items from the LauncherModel?
             Log.w(TAG, "Failed to add to item at (" + lp.cellX + "," + lp.cellY + ") to CellLayout");
+            Log.w("xxxxx", "Failed to add to item at (" + lp.cellX + "," + lp.cellY + ") to CellLayout");
         }
 
         if (!(child instanceof Folder)) {

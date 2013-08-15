@@ -49,10 +49,26 @@
     <dimen name="external_drop_icon_rect_radius">10dp</dimen>
     
     <!-- Size of icons in workspace -->
-    <!-- My change: CUSTOM: change size of icon in folder,or other place?
+    <!-- My change: CUSTOM: 256 change size of icon in folder,or other place?
         side effect: cauze normal icon img smaller
      -->
-    <dimen name="app_icon_size">256dp</dimen>
+    <dimen name="app_icon_size">172dp</dimen>
+
+    <!-- My change: ADD hotseat -->
+    <!-- height of the bottom row of controls -->
+    <dimen name="button_bar_height">68dip</dimen>
+    <!-- Because portal animations go beyond the bounds of an icon, we need
+         to make the dock layout slightly larger than the button_bar_height -->
+    <dimen name="button_bar_height_top_padding">8dp</dimen>
+    <dimen name="button_bar_height_bottom_padding">0dp</dimen>
+    <dimen name="button_bar_width_left_padding">0dp</dimen>
+    <dimen name="button_bar_width_right_padding">0dp</dimen>
+    <dimen name="button_bar_height_plus_padding">200dp</dimen>
+    <dimen name="hotseat_cell_width">100dp</dimen>
+    <dimen name="hotseat_cell_height">100dp</dimen>
+    <dimen name="hotseat_width_gap">10dp</dimen>
+    <dimen name="hotseat_height_gap">10dp</dimen>
+    <!-- end my change -->
 
     <!-- extra horizontal spacing between mini screen thumbnails ie. in all
          apps and in customization mode -->

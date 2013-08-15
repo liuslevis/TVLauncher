@@ -799,9 +799,10 @@ public final class Launcher extends Activity
         mDragLayer.setup(this, dragController);
 
         // Setup the hotseat
-        Log.i("xxxxx","\n Got ya hotseat");
         mHotseat = (Hotseat) findViewById(R.id.hotseat);
+        Log.i("xxxxx","\n Got ya hotseat:"+ mHotseat+" using id:"+R.id.hotseat);
         if (mHotseat != null) {
+            Log.i("xxxxx"," setup hotseat");
             mHotseat.setup(this);
         }
 

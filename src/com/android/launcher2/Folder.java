@@ -84,6 +84,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     private FolderIcon mFolderIcon;
     // My change:ADD load "app_icon_size" from dimens.xml
     private int icon_size_in_folder;
+    // end my change
     private int mMaxCountX;
     private int mMaxCountY;
     private int mMaxNumItems;
@@ -552,7 +553,11 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         // My change:CUSTOM set size of icon in folder
         // My change: ADD Scaled icon in new method, DEL tittle
             new FastBitmapDrawableWithCustomSize(item.getIcon(mIconCache),icon_size_in_folder,icon_size_in_folder), null, null);
-        //textView.setText(item.title);
+        // My change: CUSTOM folder item text box
+        float textSize = 20;
+        textView.setText(item.title);
+        textView.setTextSize(textSize);
+        // end my change
         textView.setTag(item);
 
         textView.setOnClickListener(this);
@@ -945,35 +950,37 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
         mSuppressFolderDeletion = false;
     }
 
+
+    // My change: TODO remain the folder when only 1 item in folder
     private void replaceFolderWithFinalItem() {
-        ItemInfo finalItem = null;
+        // ItemInfo finalItem = null;
 
-        if (getItemCount() == 1) {
-            finalItem = mInfo.contents.get(0);
-        }
+        // if (getItemCount() == 1) {
+        //     finalItem = mInfo.contents.get(0);
+        // }
 
-        // Remove the folder completely
-        CellLayout cellLayout = mLauncher.getCellLayout(mInfo.container, mInfo.screen);
-        cellLayout.removeView(mFolderIcon);
-        if (mFolderIcon instanceof DropTarget) {
-            mDragController.removeDropTarget((DropTarget) mFolderIcon);
-        }
-        mLauncher.removeFolder(mInfo);
+        // // Remove the folder completely
+        // CellLayout cellLayout = mLauncher.getCellLayout(mInfo.container, mInfo.screen);
+        // cellLayout.removeView(mFolderIcon);
+        // if (mFolderIcon instanceof DropTarget) {
+        //     mDragController.removeDropTarget((DropTarget) mFolderIcon);
+        // }
+        // mLauncher.removeFolder(mInfo);
 
-        if (finalItem != null) {
-            LauncherModel.addOrMoveItemInDatabase(mLauncher, finalItem, mInfo.container,
-                    mInfo.screen, mInfo.cellX, mInfo.cellY);
-        }
-        LauncherModel.deleteItemFromDatabase(mLauncher, mInfo);
+        // if (finalItem != null) {
+        //     LauncherModel.addOrMoveItemInDatabase(mLauncher, finalItem, mInfo.container,
+        //             mInfo.screen, mInfo.cellX, mInfo.cellY);
+        // }
+        // LauncherModel.deleteItemFromDatabase(mLauncher, mInfo);
 
-        // Add the last remaining child to the workspace in place of the folder
-        if (finalItem != null) {
-            View child = mLauncher.createShortcut(R.layout.application, cellLayout,
-                    (ShortcutInfo) finalItem);
+        // // Add the last remaining child to the workspace in place of the folder
+        // if (finalItem != null) {
+        //     View child = mLauncher.createShortcut(R.layout.application, cellLayout,
+        //             (ShortcutInfo) finalItem);
 
-            mLauncher.getWorkspace().addInScreen(child, mInfo.container, mInfo.screen, mInfo.cellX,
-                    mInfo.cellY, mInfo.spanX, mInfo.spanY);
-        }
+        //     mLauncher.getWorkspace().addInScreen(child, mInfo.container, mInfo.screen, mInfo.cellX,
+        //             mInfo.cellY, mInfo.spanX, mInfo.spanY);
+        // }
     }
 
     // This method keeps track of the last item in the folder for the purposes

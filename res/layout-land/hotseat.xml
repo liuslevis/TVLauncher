@@ -13,12 +13,15 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
+<!-- My change: bckgrnd transparent code: #00000000-->
+
 <com.android.launcher2.Hotseat
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:launcher="http://schemas.android.com/apk/res/com.android.launcher"
     android:background="@drawable/hotseat_bg_panel"
-    launcher:cellCountX="1"
-    launcher:cellCountY="5">
+    launcher:cellCountX="5"
+    launcher:cellCountY="1">
     <com.android.launcher2.CellLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
@@ -26,6 +29,7 @@
         android:layout_gravity="center"
         android:paddingTop="@dimen/button_bar_width_left_padding"
         android:paddingBottom="@dimen/button_bar_width_right_padding"
+
         android:paddingLeft="@dimen/button_bar_height_top_padding"
         android:paddingRight="@dimen/button_bar_height_bottom_padding"
 

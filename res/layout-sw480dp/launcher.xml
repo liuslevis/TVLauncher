@@ -66,7 +66,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- my comment: cant simply comment out, will crash-->
+    <!-- my change: ADD hotseat-->
+    <include layout="@layout/hotseat"
+        android:id="@+id/hotseat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_bar_height_plus_padding"
+        android:orientation="vertical" 
+        android:layout_gravity="bottom" />
+
     <include layout="@layout/qsb_bar"
         android:id="@+id/qsb_bar"
         android:layout_width="match_parent"

@@ -1,0 +1,82 @@
+修改Launcher进度 从7.15-8.15 刘笑江：
+-----------------------------------------------------------------------------------------
+第一周：
+	在师兄帮助下熟悉环境，搭建Eclipse模拟器与OTG调试环境；
+	熟悉Java语法，熟悉Android大致架构组成。
+	熟悉可能用得到的Android应用编程的基本概念，如Activity，Layout，Framework等。
+	编写App：一个简单全屏幕网页浏览器
+第二周：
+	使用Log功能研究Launcher启动，修改Layout文件，找到影响Launcher桌面布局文件路径。
+	配置github版本控制。
+	修改Workspace页面，由5变2屏。
+	添加 左右桌面切换箭头。
+第三周：
+	添加1级目录（复用Android的Folder类），找出调整1级目录icon的布局文件，控制变量。
+	添加1级目录图标：使用Log工具帮助阅读源代码，找出Folder设置、调用图标的机制，并提供简便的接口以便更改图标。
+第四周：
+	添加2级目录（修改Folder类），找出调整2级目录icon的布局文件，控制变量。
+	添加2级目录图标：使用Log工具帮助阅读源代码，找出Folder设置、调用2级目录图标的机制，并提供简便的接口以便更改图标。
+
+-----------------------------------------------------------------------------------------
+待完成：
+[ ]剩1 item 也不删除folder  android自定义Folder
+[ ]做浏览器app带红叉关闭按钮
+[ ]鼠标移动 焦点： left right arrow
+[ ]鼠标移动 焦点： 1级图标 + selector
+[ ]拖拽方法添加2级菜单
+[ ]HOTSEAT 显示
+[ ]HOTSEAT 图标排列
+[ ]HOTSEAT 显示最近打开图标
+[ ]鼠标移动 焦点： hotseat
+[ ]remove  folder edittable name box
+[ ]icon从folder移出到桌面，显示spanY=1(设置spanY=2)
+
+-----------------------------------------------------------------------------------------
+已修改文件的笔记：
+left/right button, workspace/cell layout:
+res/layout-sw-480dp/launcher.xml
+     set DragLayer: add left/right arrow button.
+
+res/values-sw-600dp/dimens.xml
+      folder icon size:folder_preview_size
+     cell size:workspace_cell_width /height
+     folder opened window size: folder_cell_width/height
+
+res/xml/default_workspaces.xml
+     organize folder, folder icon and things in it.
+
+res/layout-land/launcher.xml
+     defaultScreen
+     cell matrix: cellCountX Y (Not work!,  change in workspace.java 307 line: cellCountX=? cellCountY=?)
+
+
+open folder layout:
+User_folder.xml
+     layout_width->
+     background->
+values-sw600dp/dimens.xml (You might want to change other when failed)
+     folder_cell_width
+     folder_width_gap
+     app_icon_size : for loading high res image. Side effect: reduce scale of default icons
+Folder.java
+     FastBitmapDrawableWithCustomSize (icon_size): change size of icons in open folder layout
+
+add hotseat:
+layout-sw600dp/launcher.xml:
+     add hotseat include define in here
+     other launcher layout doesn't work: layout-land/ layout-sw480dp etc...
+     layout_gravity:bottom will not work until orientation:vertical defined
+     ADD:
+     <include layout="@layout/hotseat"
+        android:id="@+id/hotseat"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_bar_height_plus_padding"
+        android:orientation="vertical"
+        android:layout_gravity="bottom" />
+
+layout-land/hotseat.xml
+     change layout, bckgrnd etc.
+
+values-sw600dp/dimens.xml
+     set size value
+
