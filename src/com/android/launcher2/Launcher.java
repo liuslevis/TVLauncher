@@ -86,11 +86,13 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.view.View.OnHoverListener;
 import android.widget.Advanceable;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import com.android.common.Search;
 import com.android.launcher.R;
@@ -198,6 +200,12 @@ public final class Launcher extends Activity
 
     private Hotseat mHotseat;
     private View mAllAppsButton;
+    //My change: ADD
+    private Button mPrevScreenButton;
+    private Button mNextScreenButton;
+    private View mPrevScreenButtonArea;
+    private View mNextScreenButtonArea;
+    //end my change
 
     private SearchDropTargetBar mSearchDropTargetBar;
     private AppsCustomizeTabHost mAppsCustomizeTabHost;
@@ -295,6 +303,7 @@ public final class Launcher extends Activity
             mWorkspace.snapToDestination();
         }
     }
+    //end my change
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -798,6 +807,7 @@ public final class Launcher extends Activity
         // Setup the drag layer
         mDragLayer.setup(this, dragController);
 
+        // My change: ADD setup Views
         // Setup the hotseat
         mHotseat = (Hotseat) findViewById(R.id.hotseat);
         Log.i("xxxxx","\n Got ya hotseat:"+ mHotseat+" using id:"+R.id.hotseat);
@@ -805,6 +815,81 @@ public final class Launcher extends Activity
             Log.i("xxxxx"," setup hotseat");
             mHotseat.setup(this);
         }
+
+        // My change:
+        // Setup left, right arrow button
+        mPrevScreenButton = (Button) findViewById(R.id.workspace_left_btn);
+        mNextScreenButton = (Button) findViewById(R.id.workspace_right_btn);
+        mPrevScreenButtonArea = (View) findViewById(R.id.workspace_left_btn_area);
+        mNextScreenButtonArea = (View) findViewById(R.id.workspace_right_btn_area);
+        mPrevScreenButton.setOnHoverListener(new OnHoverListener(){
+            @Override
+            public boolean onHover(View v, MotionEvent event) {
+                int what = event.getAction();
+                switch(what){
+                case MotionEvent.ACTION_HOVER_ENTER:
+                    mPrevScreenButton.setBackgroundResource(R.drawable.left_button_on);
+                    break;
+                case MotionEvent.ACTION_HOVER_EXIT:
+                    mPrevScreenButton.setBackgroundResource(R.drawable.left_button);
+                    break;
+                }
+                return false;
+            }
+        });
+        mNextScreenButton.setOnHoverListener(new OnHoverListener(){
+            @Override
+            public boolean onHover(View v, MotionEvent event) {
+                int what = event.getAction();
+                switch(what){
+                case MotionEvent.ACTION_HOVER_ENTER:
+                    mNextScreenButton.setBackgroundResource(R.drawable.right_button_on);
+                    break;
+                case MotionEvent.ACTION_HOVER_EXIT:
+                    mNextScreenButton.setBackgroundResource(R.drawable.right_button);
+                    break;
+                }
+                return false;
+            }
+        });
+
+        // My change: TODO add reation when click area of ouside button
+        // mPrevScreenButtonArea.setOnHoverListener(new OnHoverListener(){
+        //     @Override
+        //     public boolean onHover(View v, MotionEvent event) {
+        //         int what = event.getAction();
+        //         switch(what){
+        //         case MotionEvent.ACTION_HOVER_ENTER:
+        //             mPrevScreenButton.setBackgroundResource(R.drawable.left_button_on);
+        //             break;
+        //         
+        //         case MotionEvent.BUTTON_PRIMARY://no react
+        //             Log.v("xxxxx","mPrevScreenArea: callOnClick:"+mPrevScreenButton.callOnClick());
+        //             break;
+        //         case MotionEvent.ACTION_HOVER_EXIT:
+        //             mPrevScreenButton.setBackgroundResource(R.drawable.left_button);
+        //             break;
+        //         }
+        //         return false;
+        //     }
+        // });
+        // mNextScreenButtonArea.setOnHoverListener(new OnHoverListener(){
+        //     @Override
+        //     public boolean onHover(View v, MotionEvent event) {
+        //         int what = event.getAction();
+        //         switch(what){
+        //         case MotionEvent.ACTION_HOVER_ENTER:
+        //             mNextScreenButton.setBackgroundResource(R.drawable.right_button_on);
+        //             break;
+        //         case MotionEvent.ACTION_HOVER_EXIT:
+        //             mNextScreenButton.setBackgroundResource(R.drawable.right_button);
+        //             break;
+        //         }
+        //         return false;
+        //     }
+        // });
+
+        // end my change
 
         // Setup the workspace
         mWorkspace.setHapticFeedbackEnabled(false);

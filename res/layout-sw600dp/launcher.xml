@@ -58,6 +58,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <LinearLayout 
+            android:id="@+id/workspace_left_btn_area"
             android:background="@color/darkkhaki"
             android:layout_gravity="left|center_vertical"
             android:layout_width="wrap_content" 
@@ -81,6 +82,7 @@
             android:visibility="invisible">
         </LinearLayout>
         <LinearLayout 
+            android:id="@+id/workspace_right_btn_area"
             android:background="@color/darkgrey"
             android:layout_gravity="left|center_vertical"
             android:layout_width="wrap_content" 

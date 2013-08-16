@@ -531,7 +531,7 @@ public class Workspace extends SmoothPagedView
 
         CellLayout.LayoutParams lp = (CellLayout.LayoutParams) child.getLayoutParams();
         Log.v("xxxxx","\nWorkspace: add a HOTSEAT para x,y,sreen,spanX,spanY="+x+","+y+","+screen+","+spanX+","+spanY);
-        Log.v("xxxxx",  "Workspace: add a HOTSEAT item x,y,sreen,spanX,spanY="+lp.cellX+","+lp.cellY+","+screen+","+lp.cellHSpan+","+lp.cellVSpan);
+        Log.v("xxxxx",  "Workspace: add a HOTSEAT lp   x,y,sreen,spanX,spanY="+lp.cellX+","+lp.cellY+","+screen+","+lp.cellHSpan+","+lp.cellVSpan);
         
         if (lp == null) {
             lp = new CellLayout.LayoutParams(x, y, spanX, spanY);
@@ -549,6 +549,7 @@ public class Workspace extends SmoothPagedView
         // Get the canonical child id to uniquely represent this view in this screen
         int childId = LauncherModel.getCellLayoutChildId(container, screen, x, y, spanX, spanY);
         boolean markCellsAsOccupied = !(child instanceof Folder);
+        Log.w("xxxxx", "Prepare to add to item at (" + lp.cellX + "," + lp.cellY + ") to CellLayout");
         if (!layout.addViewToCellLayout(child, insert ? 0 : -1, childId, lp, markCellsAsOccupied)) {
             // TODO: This branch occurs when the workspace is adding views
             // outside of the defined grid
